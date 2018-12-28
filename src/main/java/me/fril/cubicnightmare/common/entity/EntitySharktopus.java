@@ -1,10 +1,10 @@
 package me.fril.cubicnightmare.common.entity;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.*;
-import net.minecraft.entity.monster.EntityGuardian;
+import net.minecraft.entity.ai.EntityAIMoveTowardsRestriction;
+import net.minecraft.entity.ai.EntityAIWander;
+import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.DamageSource;
@@ -21,10 +21,9 @@ public class EntitySharktopus extends EntityMob {
 		this.tasks.addTask(5, entityaimovetowardsrestriction);
 		this.tasks.addTask(7, this.wander);
 		this.tasks.addTask(8, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
-		this.tasks.addTask(8, new EntityAIWatchClosest(this, EntityGuardian.class, 12.0F, 0.01F));
-		this.tasks.addTask(9, new EntityAILookIdle(this));
 		this.wander.setMutexBits(3);
 		entityaimovetowardsrestriction.setMutexBits(3);
+		this.moveHelper = new MoveHelperSharktopus(this);
 	}
 	
 	@Override
@@ -107,4 +106,6 @@ public class EntitySharktopus extends EntityMob {
 	{
 		return false;
 	}
+	
+	
 }
