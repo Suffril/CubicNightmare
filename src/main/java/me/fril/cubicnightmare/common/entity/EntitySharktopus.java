@@ -1,15 +1,27 @@
 package me.fril.cubicnightmare.common.entity;
 
+import me.fril.cubicnightmare.common.CNObjects;
 import me.fril.cubicnightmare.common.entity.ai.MoveHelperSharktopus;
+import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.MoverType;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIMoveTowardsRestriction;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
+import net.minecraft.entity.monster.EntityGuardian;
 import net.minecraft.entity.monster.EntityMob;
+import net.minecraft.entity.passive.EntitySquid;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.pathfinding.Path;
+import net.minecraft.pathfinding.PathNavigate;
+import net.minecraft.pathfinding.PathNavigateSwimmer;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+
+import javax.annotation.Nullable;
 
 public class EntitySharktopus extends EntityMob {
 	
@@ -17,14 +29,49 @@ public class EntitySharktopus extends EntityMob {
 	
 	public EntitySharktopus(World worldIn) {
 		super(worldIn);
-		EntityAIMoveTowardsRestriction entityaimovetowardsrestriction = new EntityAIMoveTowardsRestriction(this, 1.0D);
-		this.wander = new EntityAIWander(this, 1.0D, 80);
-		this.tasks.addTask(5, entityaimovetowardsrestriction);
-		this.tasks.addTask(7, this.wander);
-		this.tasks.addTask(8, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
-		this.wander.setMutexBits(3);
-		entityaimovetowardsrestriction.setMutexBits(3);
-		this.moveHelper = new MoveHelperSharktopus(this);
+		setSize(3,1.5F);
+		this.tasks.addTask(1, new EntityAIWatchClosest(this, EntityPlayer.class, 32F));
+		this.tasks.addTask(1, new EntityAIWanderSwim(this, 0.3));
+		this.stepHeight = 0.95F;
+		this.moveHelper = new EntityMoveHandlerWater(this);
+	}
+	
+	@Nullable
+	@Override
+	public EntityLivingBase getAttackTarget() {
+		return super.getAttackTarget();
+	}
+	
+	@Override
+	public PathNavigate createNavigator(World worldIn) {
+		return new PathNavigateSwimmer(this, worldIn);
+	}
+	
+	@Override
+	public float getBlockPathWeight(BlockPos pos) {
+		return this.world.getBlockState(pos).getMaterial() == Material.WATER ? 10.0F + this.world.getLightBrightness(pos) - 0.5F : super.getBlockPathWeight(pos);
+	}
+	
+	@Override
+	public void onUpdate() {
+		super.onUpdate();
+		
+		System.out.println(getAttackTarget());
+		
+		if(getAttackTarget() == null) {
+			world.getEntitiesWithinAABB(EntityLivingBase.class, this.getEntityBoundingBox().expand(45, 45, 45)).forEach(entity -> {
+				if (entity.isEntityAlive() && !(entity instanceof EntitySharktopus)) {
+					setAttackTarget(entity);
+				} else {
+					setAttackTarget(null);
+				}
+			});
+		}else {
+			if (getAttackTarget().getDistance(this) < 1) {
+				getAttackTarget().attackEntityFrom(CNObjects.SHARK_BITE, 4.0F);
+			}
+		}
+		
 	}
 	
 	@Override
@@ -81,6 +128,12 @@ public class EntitySharktopus extends EntityMob {
 	@Override
 	public void onEntityUpdate()
 	{
+		
+		if(this.isInsideOfMaterial(Material.WATER)) {
+			this.setNoGravity(true);
+		}
+		else this.setNoGravity(false);
+		
 		int i = this.getAir();
 		super.onEntityUpdate();
 		

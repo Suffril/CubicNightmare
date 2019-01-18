@@ -2,6 +2,7 @@ package me.fril.cubicnightmare.common;
 
 import me.fril.cubicnightmare.CubicNightmare;
 import me.fril.cubicnightmare.common.entity.EntitySharktopus;
+import me.fril.cubicnightmare.utils.CNSource;
 import me.fril.cubicnightmare.utils.SpawnUtil;
 import net.minecraft.entity.monster.EntityGuardian;
 import net.minecraft.util.ResourceLocation;
@@ -16,6 +17,8 @@ import net.minecraftforge.registries.IForgeRegistry;
 @Mod.EventBusSubscriber
 public class CNObjects {
 
+    public static CNSource SHARK_BITE = new CNSource("shark_bite");
+    
     @SubscribeEvent
     public static void addEntities(RegistryEvent.Register<EntityEntry> e) {
         IForgeRegistry<EntityEntry> reg = e.getRegistry();
