@@ -10,5 +10,6 @@ public class ClientProxy extends CommonProxy {
 	public void pre() {
 		super.pre();
 		RenderingRegistry.registerEntityRenderingHandler(EntitySharktopus.class, RenderSharktopus::new);
+		
 	}
 }

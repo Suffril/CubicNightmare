@@ -15,16 +15,16 @@ import net.minecraftforge.registries.IForgeRegistry;
 
 @Mod.EventBusSubscriber
 public class CNObjects {
-	
-	@SubscribeEvent
-	public static void addEntities(RegistryEvent.Register<EntityEntry> e) {
-		IForgeRegistry<EntityEntry> reg = e.getRegistry();
-		reg.registerAll(EntityEntries.SHARK);
-		SpawnUtil.setUpSpawns();
-	}
-	
-	@GameRegistry.ObjectHolder(CubicNightmare.MODID)
-	public static class EntityEntries {
-		public static final EntityEntry SHARK = EntityEntryBuilder.create().entity(EntitySharktopus.class).id(new ResourceLocation(CubicNightmare.MODID, "sharktopus"), 0).name("sharktopus").tracker(80, 3, false).build();
-	}
+
+    @SubscribeEvent
+    public static void addEntities(RegistryEvent.Register<EntityEntry> e) {
+        IForgeRegistry<EntityEntry> reg = e.getRegistry();
+        reg.registerAll(EntityEntries.SHARK);
+        SpawnUtil.setUpSpawns();
+    }
+
+    @GameRegistry.ObjectHolder(CubicNightmare.MODID)
+    public static class EntityEntries {
+        public static final EntityEntry SHARK = EntityEntryBuilder.create().entity(EntitySharktopus.class).id(new ResourceLocation(CubicNightmare.MODID, "sharktopus"), 0).name("sharktopus").tracker(80, 3, false).build();
+    }
 }

@@ -1,5 +1,6 @@
-package me.fril.cubicnightmare.common.entity;
+package me.fril.cubicnightmare.common.entity.ai;
 
+import me.fril.cubicnightmare.common.entity.EntitySharktopus;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityLookHelper;
 import net.minecraft.entity.ai.EntityMoveHelper;

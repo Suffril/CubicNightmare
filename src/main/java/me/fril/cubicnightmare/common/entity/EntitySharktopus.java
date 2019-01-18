@@ -1,5 +1,6 @@
 package me.fril.cubicnightmare.common.entity;
 
+import me.fril.cubicnightmare.common.entity.ai.MoveHelperSharktopus;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIMoveTowardsRestriction;
@@ -38,8 +39,6 @@ public class EntitySharktopus extends EntityMob {
 	
 	@Override
 	public boolean attackEntityAsMob(Entity entityIn) {
-		
-		
 		return super.attackEntityAsMob(entityIn);
 	}
 	
