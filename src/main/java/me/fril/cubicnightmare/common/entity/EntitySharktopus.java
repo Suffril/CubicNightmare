@@ -1,20 +1,16 @@
 package me.fril.cubicnightmare.common.entity;
 
 import me.fril.cubicnightmare.common.CNObjects;
-import me.fril.cubicnightmare.common.entity.ai.MoveHelperSharktopus;
+import me.fril.cubicnightmare.common.entity.ai.EntityAIWanderSwim;
+import me.fril.cubicnightmare.common.entity.ai.EntityMoveHandlerWater;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.MoverType;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.EntityAIMoveTowardsRestriction;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
-import net.minecraft.entity.monster.EntityGuardian;
 import net.minecraft.entity.monster.EntityMob;
-import net.minecraft.entity.passive.EntitySquid;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.pathfinding.Path;
 import net.minecraft.pathfinding.PathNavigate;
 import net.minecraft.pathfinding.PathNavigateSwimmer;
 import net.minecraft.util.DamageSource;
@@ -23,7 +19,7 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 
-public class EntitySharktopus extends EntityMob {
+public class EntitySharktopus extends EntityMob implements ICNMob{
 	
 	protected EntityAIWander wander;
 	
@@ -56,8 +52,6 @@ public class EntitySharktopus extends EntityMob {
 	public void onUpdate() {
 		super.onUpdate();
 		
-		System.out.println(getAttackTarget());
-		
 		if(getAttackTarget() == null) {
 			world.getEntitiesWithinAABB(EntityLivingBase.class, this.getEntityBoundingBox().expand(45, 45, 45)).forEach(entity -> {
 				if (entity.isEntityAlive() && !(entity instanceof EntitySharktopus)) {
@@ -67,7 +61,7 @@ public class EntitySharktopus extends EntityMob {
 				}
 			});
 		}else {
-			if (getAttackTarget().getDistance(this) < 1) {
+			if (getAttackTarget().getDistance(this) < 1 && getEntitySenses().canSee(getAttackTarget())) {
 				getAttackTarget().attackEntityFrom(CNObjects.SHARK_BITE, 4.0F);
 			}
 		}

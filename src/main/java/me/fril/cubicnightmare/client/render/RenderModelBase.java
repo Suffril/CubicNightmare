@@ -12,12 +12,13 @@ import net.minecraft.util.ResourceLocation;
 
 import javax.annotation.Nullable;
 
-public class RenderSharktopus extends RenderLiving<EntitySharktopus> {
+public class RenderModelBase extends RenderLiving<EntitySharktopus> {
 	
-	ResourceLocation TEX = new ResourceLocation(CubicNightmare.MODID, "textures/entity/sharktopus.png");
+	ResourceLocation TEX;
 	
-	public RenderSharktopus(RenderManager rendermanagerIn) {
-		super(rendermanagerIn, new ModelSharktopus(), 0);
+	public RenderModelBase(RenderManager rendermanagerIn, ResourceLocation texture, ModelBase modelBase) {
+		super(rendermanagerIn, modelBase, 0);
+		this.TEX = texture;
 	}
 	
 	/**

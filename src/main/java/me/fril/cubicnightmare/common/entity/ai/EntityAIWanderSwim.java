@@ -1,4 +1,4 @@
-package me.fril.cubicnightmare.common.entity;
+package me.fril.cubicnightmare.common.entity.ai;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLiving;
