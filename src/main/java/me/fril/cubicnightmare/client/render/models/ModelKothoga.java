@@ -8,7 +8,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
 
 /**
- * Kothoga - Batman
+ * EntityKothoga - Batman
  * Created using Tabula 5.1.0
  */
 public class ModelKothoga extends ModelBase {
@@ -378,6 +378,8 @@ public class ModelKothoga extends ModelBase {
 	@Override
 	public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
 		GlStateManager.pushMatrix();
+		GlStateManager.scale(2,2,2);
+		GlStateManager.translate(0,-0.7,0);
 		this.rightarm.render(f5);
 		this.leftleg1.render(f5);
 		this.leftarm.render(f5);

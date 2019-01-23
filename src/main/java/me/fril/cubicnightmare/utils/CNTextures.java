@@ -10,5 +10,6 @@ import net.minecraft.util.ResourceLocation;
 public class CNTextures {
 	
 	public static ResourceLocation SHARK = new ResourceLocation(CubicNightmare.MODID, "textures/entity/sharktopus.png");
+	public static ResourceLocation KOTHOGA = new ResourceLocation(CubicNightmare.MODID, "textures/entity/kothoga.png");
 	
 }

@@ -3,6 +3,7 @@ package me.fril.cubicnightmare.client.render;
 import me.fril.cubicnightmare.CubicNightmare;
 import me.fril.cubicnightmare.client.render.models.ModelSharktopus;
 import me.fril.cubicnightmare.common.entity.EntitySharktopus;
+import me.fril.cubicnightmare.utils.CNTextures;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
@@ -12,13 +13,10 @@ import net.minecraft.util.ResourceLocation;
 
 import javax.annotation.Nullable;
 
-public class RenderModelBase extends RenderLiving<EntitySharktopus> {
+public class RenderSharktopus extends RenderLiving<EntitySharktopus> {
 	
-	ResourceLocation TEX;
-	
-	public RenderModelBase(RenderManager rendermanagerIn, ResourceLocation texture, ModelBase modelBase) {
-		super(rendermanagerIn, modelBase, 0);
-		this.TEX = texture;
+	public RenderSharktopus(RenderManager rendermanagerIn) {
+		super(rendermanagerIn, new ModelSharktopus(), 0);
 	}
 	
 	/**
@@ -29,6 +27,6 @@ public class RenderModelBase extends RenderLiving<EntitySharktopus> {
 	@Nullable
 	@Override
 	protected ResourceLocation getEntityTexture(EntitySharktopus entity) {
-		return TEX;
+		return CNTextures.SHARK;
 	}
 }

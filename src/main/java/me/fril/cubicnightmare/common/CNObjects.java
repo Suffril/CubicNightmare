@@ -1,6 +1,7 @@
 package me.fril.cubicnightmare.common;
 
 import me.fril.cubicnightmare.CubicNightmare;
+import me.fril.cubicnightmare.common.entity.EntityKothoga;
 import me.fril.cubicnightmare.common.entity.EntitySharktopus;
 import me.fril.cubicnightmare.utils.CNSource;
 import me.fril.cubicnightmare.utils.SpawnUtil;
@@ -22,12 +23,13 @@ public class CNObjects {
     @SubscribeEvent
     public static void addEntities(RegistryEvent.Register<EntityEntry> e) {
         IForgeRegistry<EntityEntry> reg = e.getRegistry();
-        reg.registerAll(EntityEntries.SHARK);
+        reg.registerAll(EntityEntries.SHARK, EntityEntries.KOTHOGA);
         SpawnUtil.setUpSpawns();
     }
 
     @GameRegistry.ObjectHolder(CubicNightmare.MODID)
     public static class EntityEntries {
         public static final EntityEntry SHARK = EntityEntryBuilder.create().entity(EntitySharktopus.class).id(new ResourceLocation(CubicNightmare.MODID, "sharktopus"), 0).name("sharktopus").tracker(80, 3, false).build();
+        public static final EntityEntry KOTHOGA = EntityEntryBuilder.create().entity(EntityKothoga.class).id(new ResourceLocation(CubicNightmare.MODID, "kothoga"), 1).name("kothaga").tracker(80, 3, false).build();
     }
 }
