@@ -4,6 +4,7 @@ import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.Entity;
+import net.minecraft.util.math.MathHelper;
 
 /**
  * Sharktopus - Batman
@@ -337,8 +338,9 @@ public class ModelSharktopus extends ModelBase {
 	}
 	
 	@Override
-	public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
+	public void render(Entity entity, float limbSwing, float limbSwingAmount, float ticksExisted, float headyaw, float headpitch, float f5) {
 		GlStateManager.pushMatrix();
+		setRotationAngles(entity, limbSwing, limbSwingAmount, ticksExisted, headyaw, headpitch, f5);
 		GlStateManager.scale(2,2,2);
 		this.body.render(f5);
 		GlStateManager.popMatrix();
@@ -355,5 +357,51 @@ public class ModelSharktopus extends ModelBase {
 	
 	@Override
 	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
+	}
+	private static float rad = (float) ( Math.PI/180 );
+	public void setRotationAngles(Entity entity, float limbSwing, float limbSwingAmount, float ticksExisted, float headyaw, float headpitch, float f5){
+		
+		float motion = MathHelper.sqrt( entity.motionX*entity.motionX + entity.motionY*entity.motionY + entity.motionZ*entity.motionZ );
+		ModelRenderer[] tt1= {this.tt11,this.tt12,this.tt13,this.tt14,this.tt15};
+		ModelRenderer[] tt2= {this.tt21,this.tt22,this.tt23,this.tt24,this.tt25};
+		ModelRenderer[] tt3= {this.tt31,this.tt32,this.tt33,this.tt34,this.tt35};
+		ModelRenderer[] tt4= {this.tt41,this.tt42,this.tt43,this.tt44,this.tt45};
+		ModelRenderer[] tt5= {this.tt51,this.tt52,this.tt53,this.tt54,this.tt55};
+		ModelRenderer[] tt6= {this.tt61,this.tt62,this.tt63,this.tt64,this.tt65};
+		ModelRenderer[] tt7= {this.tt71,this.tt72,this.tt73,this.tt74,this.tt75};
+		ModelRenderer[] tt8= {this.tt81,this.tt82,this.tt83,this.tt84,this.tt85};
+		ModelRenderer[][] tt = {tt1,tt2,tt3,tt4,tt5,tt6,tt7,tt8};
+		
+		this.lowerjaw.rotateAngleX=-7*rad+MathHelper.sin( ticksExisted*0.1f )*0.3f+0.3f;
+		
+		float f1=0.9f;float f2=0.5F * limbSwingAmount;
+		for( int i = 0 ; i<tt.length ; i++ )
+		{
+			for( int j = 0 ; j<tt[i].length ; j++ )
+			{
+				float k = i*2*3.14f/tt.length;
+				float l=0;
+				float m=0;
+				switch(i){
+					case 0:l= 0.5f;m= 0.5f;break;
+					case 1:l= 1.0f;m= 0.0f;break;
+					case 2:l= 0.5f;m=-0.5f;break;
+					case 3:l=-0.5f;m=-0.5f;break;
+					case 4:l=-1.0f;m= 0.0f;break;
+					case 5:l=-0.5f;m= 0.5f;break;
+					case 6:l= 0.0f;m= 1.0f;break;
+					case 7:l= 0.0f;m=-1.0f;break;
+				}
+				float idle=(MathHelper.cos(k+ticksExisted*0.01f+(f1*(tt[i].length-j)))+0.0f)*0.1f;
+				float motiona=(MathHelper.cos(limbSwing * 0.15F+(f1*(tt[i].length-j)))+0.5f)*f2;
+				
+				tt[i][j].rotateAngleX=motiona*l;
+				tt[i][j].rotateAngleY=motiona*m;
+				tt[i][j].rotateAngleX+=((idle)/(motion+1))*l;
+				tt[i][j].rotateAngleY+=((idle)/(motion+1))*m;
+				
+			}
+		}
+		
 	}
 }

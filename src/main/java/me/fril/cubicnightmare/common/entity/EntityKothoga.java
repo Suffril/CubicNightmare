@@ -23,7 +23,7 @@ public class EntityKothoga extends EntityMob {
 	
 	public EntityKothoga(World worldIn) {
 		super(worldIn);
-		this.setSize(1.3F, 1.4F);
+		this.setSize(2F, 2F);
 		this.tasks.addTask(4, new EntityAILeapAtTarget(this, 0.4F));
 		this.tasks.addTask(5, new EntityAIAttackMelee(this, 1.0D, true));
 		this.tasks.addTask(10, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));

@@ -3,11 +3,13 @@ package me.fril.cubicnightmare.common.entity;
 import me.fril.cubicnightmare.common.CNObjects;
 import me.fril.cubicnightmare.common.entity.ai.EntityAIWanderSwim;
 import me.fril.cubicnightmare.common.entity.ai.EntityMoveHandlerWater;
+import me.fril.cubicnightmare.utils.CNSource;
 import me.fril.cubicnightmare.utils.CNTextures;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.EntityAIAttackMelee;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.monster.EntityMob;
@@ -19,6 +21,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import org.lwjgl.Sys;
 
 import javax.annotation.Nullable;
 
@@ -53,14 +56,28 @@ public class EntitySharktopus extends EntityWaterMob {
 		}
 		
 		if(getAttackTarget() == null) {
-			world.getEntitiesWithinAABB(EntityLivingBase.class, this.getEntityBoundingBox().expand(45, 45, 45)).forEach(entity -> {
-				if (entity.isEntityAlive() && !(entity instanceof EntitySharktopus) && entity.isInsideOfMaterial(Material.WATER)) {
-					setAttackTarget(entity);
-				} else {
-					setAttackTarget(null);
-				}
-			});
+			
+			if(world.getClosestPlayerToEntity(this, 45) != null){
+				setAttackTarget(world.getClosestPlayerToEntity(this, 45));
+			} else {
+				world.getEntitiesWithinAABB(EntityLivingBase.class, this.getEntityBoundingBox().expand(45, 45, 45)).forEach(entity -> {
+					
+					if (entity.isEntityAlive() && !(entity instanceof EntitySharktopus) && entity.isInsideOfMaterial(Material.WATER)) {
+						setAttackTarget(entity);
+					} else {
+						setAttackTarget(null);
+					}
+				});
+			}
+			
+		} else {
+			getNavigator().tryMoveToEntityLiving(getAttackTarget(), 1);
+			if(getAttackTarget().getDistance(this) < 2){
+				System.out.println(getAttackTarget().getName());
+				getAttackTarget().attackEntityFrom(CNObjects.SHARK_BITE, 4.0F);
+			}
 		}
+		
 		
 	}
 	
@@ -75,7 +92,6 @@ public class EntitySharktopus extends EntityWaterMob {
 	
 	@Override
 	public boolean attackEntityAsMob(Entity entityIn) {
-		entityIn.attackEntityFrom(CNObjects.SHARK_BITE, 4.0F);
 		return true;
 	}
 	
