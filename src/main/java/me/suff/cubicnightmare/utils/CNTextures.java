@@ -11,5 +11,6 @@ public class CNTextures {
 	
 	public static ResourceLocation SHARK = new ResourceLocation(CubicNightmare.MODID, "textures/entity/sharktopus.png");
 	public static ResourceLocation KOTHOGA = new ResourceLocation(CubicNightmare.MODID, "textures/entity/kothoga.png");
-	
+	public static ResourceLocation GRABOID = new ResourceLocation(CubicNightmare.MODID, "textures/entity/graboid.png");
+	public static ResourceLocation DEMOGORGON = new ResourceLocation(CubicNightmare.MODID, "textures/entity/demogorgon.png");
 }

@@ -19,7 +19,7 @@ public class CubicNightmare
 
     private static Logger LOG = LogManager.getLogger(NAME);
 
-    @SidedProxy(clientSide = "ClientProxy", serverSide = "CommonProxy")
+    @SidedProxy(clientSide = "me.suff.cubicnightmare.proxy.ClientProxy", serverSide = "me.suff.cubicnightmare.proxy.CommonProxy")
     public static CommonProxy proxy;
     
     @EventHandler

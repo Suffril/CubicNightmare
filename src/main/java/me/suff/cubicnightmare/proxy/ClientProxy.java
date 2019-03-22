@@ -1,8 +1,10 @@
 package me.suff.cubicnightmare.proxy;
 
+import me.suff.cubicnightmare.client.render.RenderDemogorgon;
 import me.suff.cubicnightmare.client.render.RenderGraboid;
 import me.suff.cubicnightmare.client.render.RenderSharktopus;
 import me.suff.cubicnightmare.client.render.RenderKothoga;
+import me.suff.cubicnightmare.common.entity.EntityDemogorgon;
 import me.suff.cubicnightmare.common.entity.EntityGraboid;
 import me.suff.cubicnightmare.common.entity.EntityKothoga;
 import me.suff.cubicnightmare.common.entity.EntitySharktopus;
@@ -16,5 +18,6 @@ public class ClientProxy extends CommonProxy {
 		RenderingRegistry.registerEntityRenderingHandler(EntitySharktopus.class, RenderSharktopus::new);
 		RenderingRegistry.registerEntityRenderingHandler(EntityKothoga.class, RenderKothoga::new);
 		RenderingRegistry.registerEntityRenderingHandler(EntityGraboid.class, RenderGraboid::new);
+		RenderingRegistry.registerEntityRenderingHandler(EntityDemogorgon.class, RenderDemogorgon::new);
 	}
 }
