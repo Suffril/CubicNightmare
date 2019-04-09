@@ -3,11 +3,8 @@ package me.suff.cubicnightmare.client.render;
 import me.suff.cubicnightmare.client.render.models.ModelSharktopus;
 import me.suff.cubicnightmare.common.entity.EntitySharktopus;
 import me.suff.cubicnightmare.utils.CNTextures;
-import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.client.renderer.entity.RenderSquid;
-import net.minecraft.entity.passive.EntitySquid;
 import net.minecraft.util.ResourceLocation;
 
 import javax.annotation.Nullable;

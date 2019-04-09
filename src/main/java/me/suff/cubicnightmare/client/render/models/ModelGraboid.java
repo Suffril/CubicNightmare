@@ -11,6 +11,7 @@ import net.minecraft.util.math.MathHelper;
  * Created using Tabula 5.1.0
  */
 public class ModelGraboid extends ModelBase {
+	private static float rad = (float) (Math.PI / 180);
 	ModelRenderer body01;
 	ModelRenderer body02;
 	ModelRenderer neck01;
@@ -656,10 +657,9 @@ public class ModelGraboid extends ModelBase {
 	public void render(Entity entity, float limbSwing, float limbSwingAmount, float ticksExisted, float headyaw, float headpitch, float f5) {
 		
 		GlStateManager.pushMatrix();
-		GlStateManager.rotate( -headyaw, 0, 1, 0 );
+		GlStateManager.rotate(-headyaw, 0, 1, 0);
 		GlStateManager.disableCull();
 		setRotationAngles(entity, limbSwing, limbSwingAmount, ticksExisted, headyaw, headpitch, f5);
-		
 		this.body01.render(f5);
 		GlStateManager.enableCull();
 		GlStateManager.popMatrix();
@@ -673,46 +673,45 @@ public class ModelGraboid extends ModelBase {
 		modelRenderer.rotateAngleY = y;
 		modelRenderer.rotateAngleZ = z;
 	}
-	private static float rad = (float) ( Math.PI/180 );
-	public void setRotationAngles(Entity entity, float limbSwing, float limbSwingAmount, float ticksExisted, float headyaw, float headpitch, float f5){
-		float f1=0.6f;float f2=0.3F * limbSwingAmount;
+	
+	public void setRotationAngles(Entity entity, float limbSwing, float limbSwingAmount, float ticksExisted, float headyaw, float headpitch, float f5) {
+		float f1 = 0.6f;
+		float f2 = 0.3F * limbSwingAmount;
 		
-		ModelRenderer[] body = {this.body01,this.body02,this.body03,this.body04,this.body05,this.body06,this.body07};
-		ModelRenderer[] mGrabber = {this.mGrabber01,this.mGrabber02,this.mGrabber03,this.mGrabber04,this.mGrabber05};
-		ModelRenderer[] rGrabber = {this.rGrabber01,this.rGrabber02,this.rGrabber03,this.rGrabber04,this.rGrabber05};
-		ModelRenderer[] lGrabber = {this.lGrabber01,this.lGrabber02,this.lGrabber03,this.lGrabber04,this.lGrabber05};
-		this.neck01.rotateAngleY=headyaw*rad/4;
-		this.head.rotateAngleY=this.neck01.rotateAngleY*2;
+		ModelRenderer[] body = {this.body01, this.body02, this.body03, this.body04, this.body05, this.body06, this.body07};
+		ModelRenderer[] mGrabber = {this.mGrabber01, this.mGrabber02, this.mGrabber03, this.mGrabber04, this.mGrabber05};
+		ModelRenderer[] rGrabber = {this.rGrabber01, this.rGrabber02, this.rGrabber03, this.rGrabber04, this.rGrabber05};
+		ModelRenderer[] lGrabber = {this.lGrabber01, this.lGrabber02, this.lGrabber03, this.lGrabber04, this.lGrabber05};
+		this.neck01.rotateAngleY = headyaw * rad / 4;
+		this.head.rotateAngleY = this.neck01.rotateAngleY * 2;
 		
-		for( int i = 0 ; i<body.length ; i++ )
-		{
-			body[i].rotateAngleY=-headyaw*rad/4;
-			body[i].rotateAngleY+=MathHelper.cos(limbSwing * 0.5F+(f1*(body.length-i)))*f2;
+		for (int i = 0; i < body.length; i++) {
+			body[i].rotateAngleY = -headyaw * rad / 4;
+			body[i].rotateAngleY += MathHelper.cos(limbSwing * 0.5F + (f1 * (body.length - i))) * f2;
 		}
-		this.neck01.rotateAngleY+=MathHelper.cos(limbSwing * 0.5F+(f1*(0)))*f2*0.5f;
-		this.head.rotateAngleY-=MathHelper.sin(limbSwing * 0.5F+(f1*(0)))*f2;
-		this.tTusk01.rotateAngleX=-1+MathHelper.sin( ticksExisted *0.03f )*0.1f;
-		f1=1.3f;f2=0.3F * limbSwingAmount;
-		for( int i = 0 ; i<mGrabber.length ; i++ )
-		{
-			mGrabber[i].rotationPointZ=-4*MathHelper.sqrt( MathHelper.sin( ticksExisted *0.08f )*MathHelper.sin( ticksExisted *0.08f ) );
-			mGrabber[1].rotationPointZ=-6*MathHelper.sqrt( MathHelper.sin( ticksExisted *0.08f )*MathHelper.sin( ticksExisted *0.08f ) );
-			mGrabber[i].rotateAngleX=MathHelper.cos( ticksExisted*0.3f +(f1*(mGrabber.length-i)))*0.5f;
-			mGrabber[i].rotateAngleY=MathHelper.sin( ticksExisted*0.1f +(f1*(mGrabber.length-i)))*0.4f;
-			mGrabber[0].rotateAngleX=-0.5f-MathHelper.sin( ticksExisted*0.3f +(f1*(mGrabber.length-0)))*0.5f;
+		this.neck01.rotateAngleY += MathHelper.cos(limbSwing * 0.5F + (f1 * (0))) * f2 * 0.5f;
+		this.head.rotateAngleY -= MathHelper.sin(limbSwing * 0.5F + (f1 * (0))) * f2;
+		this.tTusk01.rotateAngleX = -1 + MathHelper.sin(ticksExisted * 0.03f) * 0.1f;
+		f1 = 1.3f;
+		f2 = 0.3F * limbSwingAmount;
+		for (int i = 0; i < mGrabber.length; i++) {
+			mGrabber[i].rotationPointZ = -4 * MathHelper.sqrt(MathHelper.sin(ticksExisted * 0.08f) * MathHelper.sin(ticksExisted * 0.08f));
+			mGrabber[1].rotationPointZ = -6 * MathHelper.sqrt(MathHelper.sin(ticksExisted * 0.08f) * MathHelper.sin(ticksExisted * 0.08f));
+			mGrabber[i].rotateAngleX = MathHelper.cos(ticksExisted * 0.3f + (f1 * (mGrabber.length - i))) * 0.5f;
+			mGrabber[i].rotateAngleY = MathHelper.sin(ticksExisted * 0.1f + (f1 * (mGrabber.length - i))) * 0.4f;
+			mGrabber[0].rotateAngleX = -0.5f - MathHelper.sin(ticksExisted * 0.3f + (f1 * (mGrabber.length - 0))) * 0.5f;
 			
-			rGrabber[i].rotationPointZ=-4*MathHelper.sin(2+ ticksExisted *0.08f )+0.5F;
-			rGrabber[1].rotationPointZ=-6*MathHelper.sin(2+ ticksExisted *0.08f )+0.5F;
-			rGrabber[i].rotateAngleX=MathHelper.cos(2+ ticksExisted*0.3f +(f1*(mGrabber.length-i)))*0.5f;
-			rGrabber[i].rotateAngleY=MathHelper.sin(2+ ticksExisted*0.1f +(f1*(mGrabber.length-i)))*0.4f;
-			rGrabber[0].rotateAngleX=-0.5f-MathHelper.sin(2+ ticksExisted*0.3f +(f1*(mGrabber.length-0)))*0.5f;
+			rGrabber[i].rotationPointZ = -4 * MathHelper.sin(2 + ticksExisted * 0.08f) + 0.5F;
+			rGrabber[1].rotationPointZ = -6 * MathHelper.sin(2 + ticksExisted * 0.08f) + 0.5F;
+			rGrabber[i].rotateAngleX = MathHelper.cos(2 + ticksExisted * 0.3f + (f1 * (mGrabber.length - i))) * 0.5f;
+			rGrabber[i].rotateAngleY = MathHelper.sin(2 + ticksExisted * 0.1f + (f1 * (mGrabber.length - i))) * 0.4f;
+			rGrabber[0].rotateAngleX = -0.5f - MathHelper.sin(2 + ticksExisted * 0.3f + (f1 * (mGrabber.length - 0))) * 0.5f;
 			
-			lGrabber[i].rotationPointZ=-4*MathHelper.sin(4+ ticksExisted *0.08f )+0.5F;
-			lGrabber[1].rotationPointZ=-6*MathHelper.sin(4+ ticksExisted *0.08f )+0.5F;
-			lGrabber[i].rotateAngleX=MathHelper.cos(4+ ticksExisted*0.3f +(f1*(mGrabber.length-i)))*0.5f;
-			lGrabber[i].rotateAngleY=MathHelper.sin(4+ ticksExisted*0.1f +(f1*(mGrabber.length-i)))*0.4f;
-			lGrabber[0].rotateAngleX=-0.5f-MathHelper.sin(4+ ticksExisted*0.3f +(f1*(mGrabber.length-0)))*0.5f;
-			
+			lGrabber[i].rotationPointZ = -4 * MathHelper.sin(4 + ticksExisted * 0.08f) + 0.5F;
+			lGrabber[1].rotationPointZ = -6 * MathHelper.sin(4 + ticksExisted * 0.08f) + 0.5F;
+			lGrabber[i].rotateAngleX = MathHelper.cos(4 + ticksExisted * 0.3f + (f1 * (mGrabber.length - i))) * 0.5f;
+			lGrabber[i].rotateAngleY = MathHelper.sin(4 + ticksExisted * 0.1f + (f1 * (mGrabber.length - i))) * 0.4f;
+			lGrabber[0].rotateAngleX = -0.5f - MathHelper.sin(4 + ticksExisted * 0.3f + (f1 * (mGrabber.length - 0))) * 0.5f;
 			
 			
 		}

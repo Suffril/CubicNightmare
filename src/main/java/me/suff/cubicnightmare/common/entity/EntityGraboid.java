@@ -6,38 +6,61 @@ import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.monster.EntityMob;
-import net.minecraft.entity.monster.EntitySilverfish;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class EntityGraboid extends EntityMob {
 	
+	private static final DataParameter<Boolean> IS_DIVING = EntityDataManager.<Boolean>createKey(EntityGraboid.class, DataSerializers.BOOLEAN);
+	
 	public EntityGraboid(World worldIn) {
 		super(worldIn);
-		this.setSize(0.4F, 0.3F);
+		this.setSize(1F, 1F);
 	}
 	
-	protected void initEntityAI(){
+	@Override
+	protected void initEntityAI() {
 		this.tasks.addTask(1, new EntityAISwimming(this));
 		this.tasks.addTask(4, new EntityAIAttackMelee(this, 1.0D, false));
 		this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true, new Class[0]));
 		this.targetTasks.addTask(2, new EntityAINearestAttackableTarget<>(this, EntityPlayer.class, true));
 	}
 	
+	public void setDiving(boolean diving){
+		getDataManager().get(IS_DIVING);
+	}
+	
+	public boolean isDiving(){
+		return getDataManager().get(IS_DIVING);
+	}
+	
+	@Override
+	public void onUpdate() {
+		super.onUpdate();
+		if (getAttackTarget() != null && getAttackTarget() instanceof EntityPlayer) {
+			EntityPlayer player = (EntityPlayer) getAttackTarget();
+			if (player.isSprinting()) {
+				this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.50D);
+			} else {
+				this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.25D);
+			}
+		}
+	}
+	
 	/**
 	 * Returns the Y Offset of this entity.
 	 */
 	@Override
-	public double getYOffset()
-	{
+	public double getYOffset() {
 		return 0.1D;
 	}
 	
 	@Override
-	public float getEyeHeight()
-	{
+	public float getEyeHeight() {
 		return 0.1F;
 	}
 	

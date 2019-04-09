@@ -11,6 +11,7 @@ import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.monster.EntityZombie;
+import net.minecraft.entity.passive.EntityFlying;
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
@@ -19,7 +20,7 @@ import net.minecraft.world.World;
  * Created by Suffril
  * on 22/01/2019.
  */
-public class EntityKothoga extends EntityMob {
+public class EntityKothoga extends EntityMob implements EntityFlying {
 	
 	public EntityKothoga(World worldIn) {
 		super(worldIn);
@@ -39,19 +40,14 @@ public class EntityKothoga extends EntityMob {
 	public void onKillEntity(EntityLivingBase entityLivingIn) {
 		super.onKillEntity(entityLivingIn);
 		
-		if(entityLivingIn instanceof EntityZombie || entityLivingIn instanceof EntityPlayer || entityLivingIn instanceof EntitySkeleton || entityLivingIn instanceof EntityVillager){
-			if(!world.isRemote){
-				EntityKothoga kothoga = new EntityKothoga(world);
-				kothoga.setLocationAndAngles(entityLivingIn.posX, entityLivingIn.posY, entityLivingIn.posZ, 0, 0);
-				world.spawnEntity(kothoga);
-			}
+		if (entityLivingIn instanceof EntityZombie || entityLivingIn instanceof EntityPlayer || entityLivingIn instanceof EntitySkeleton || entityLivingIn instanceof EntityVillager) {
+			heal(getMaxHealth());
 		}
-	
+		
 	}
 	
 	@Override
-	protected void applyEntityAttributes()
-	{
+	protected void applyEntityAttributes() {
 		super.applyEntityAttributes();
 		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.30000001192092896D);
 		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(48D);

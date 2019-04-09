@@ -8,7 +8,7 @@ import net.minecraft.util.math.BlockPos;
 
 import java.util.Random;
 
-public class EntityAIWanderSwim extends EntityAIBase{
+public class EntityAIWanderSwim extends EntityAIBase {
 	
 	public EntityLiving mob;
 	public double speed;
@@ -29,11 +29,11 @@ public class EntityAIWanderSwim extends EntityAIBase{
 	
 	@Override
 	public void updateTask() {
-		if(time == -1 || mob.world.getWorldTime() > time) {
+		if (time == -1 || mob.world.getWorldTime() > time) {
 			time = mob.world.getWorldTime() + rand.nextInt(300);
-			for(int tries = 0; tries < 50; ++tries) {
+			for (int tries = 0; tries < 50; ++tries) {
 				BlockPos pos = this.mob.getPosition().add(new BlockPos(rand.nextInt(40) - 20, rand.nextInt(40) - 20, rand.nextInt(40) - 20));
-				if(mob.world.getBlockState(pos).getMaterial() == Material.WATER) {
+				if (mob.world.getBlockState(pos).getMaterial() == Material.WATER) {
 					mob.getMoveHelper().setMoveTo(pos.getX(), pos.getY(), pos.getZ(), 0.75);
 					break;
 				}

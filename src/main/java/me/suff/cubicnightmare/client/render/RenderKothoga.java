@@ -3,7 +3,6 @@ package me.suff.cubicnightmare.client.render;
 import me.suff.cubicnightmare.client.render.models.ModelKothoga;
 import me.suff.cubicnightmare.common.entity.EntityKothoga;
 import me.suff.cubicnightmare.utils.CNTextures;
-import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.util.ResourceLocation;

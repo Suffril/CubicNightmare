@@ -11,30 +11,27 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 @Mod(modid = CubicNightmare.MODID, name = CubicNightmare.NAME, version = CubicNightmare.VERSION)
-public class CubicNightmare
-{
-    public static final String MODID = "cubic_nightmare";
-    public static final String NAME = "Cubic Nightmare";
-    public static final String VERSION = "1.0";
-
-    private static Logger LOG = LogManager.getLogger(NAME);
-
-    @SidedProxy(clientSide = "me.suff.cubicnightmare.proxy.ClientProxy", serverSide = "me.suff.cubicnightmare.proxy.CommonProxy")
-    public static CommonProxy proxy;
-    
-    @EventHandler
-    public void pre(FMLPreInitializationEvent event) {
-        proxy.pre();
-    }
-
-    @EventHandler
-    public void init(FMLInitializationEvent event) {
-        proxy.init();
-    }
-    
-    @EventHandler
-    public void post(FMLPostInitializationEvent event) {
-        proxy.init();
-    }
-    
+public class CubicNightmare {
+	public static final String MODID = "cubic_nightmare";
+	public static final String NAME = "Cubic Nightmare";
+	public static final String VERSION = "1.0";
+	@SidedProxy(clientSide = "me.suff.cubicnightmare.proxy.ClientProxy", serverSide = "me.suff.cubicnightmare.proxy.CommonProxy")
+	public static CommonProxy proxy;
+	private static Logger LOG = LogManager.getLogger(NAME);
+	
+	@EventHandler
+	public void pre(FMLPreInitializationEvent event) {
+		proxy.pre();
+	}
+	
+	@EventHandler
+	public void init(FMLInitializationEvent event) {
+		proxy.init();
+	}
+	
+	@EventHandler
+	public void post(FMLPostInitializationEvent event) {
+		proxy.init();
+	}
+	
 }

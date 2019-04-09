@@ -7,27 +7,22 @@ import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.EntityAIAttackMelee;
-import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
-import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.passive.EntityWaterMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.pathfinding.PathNavigate;
 import net.minecraft.pathfinding.PathNavigateSwimmer;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import org.lwjgl.Sys;
 
 import javax.annotation.Nullable;
 
+
+//Done
 public class EntitySharktopus extends EntityWaterMob {
 	
 	public EntitySharktopus(World worldIn) {
 		super(worldIn);
-		setSize(2,2F);
+		setSize(2, 2F);
 		this.tasks.addTask(1, new EntityAIWatchClosest(this, EntityPlayer.class, 32F));
 		this.tasks.addTask(1, new EntityAIWanderSwim(this, 0.3));
 		this.stepHeight = 0.95F;
@@ -49,13 +44,13 @@ public class EntitySharktopus extends EntityWaterMob {
 	public void onUpdate() {
 		super.onUpdate();
 		
-		if(world.getBlockState(getPosition().up()).getMaterial() != Material.WATER){
+		if (world.getBlockState(getPosition().up()).getMaterial() != Material.WATER) {
 			motionY = -2;
 		}
 		
-		if(getAttackTarget() == null) {
+		if (getAttackTarget() == null) {
 			
-			if(world.getClosestPlayerToEntity(this, 45) != null){
+			if (world.getClosestPlayerToEntity(this, 45) != null) {
 				setAttackTarget(world.getClosestPlayerToEntity(this, 45));
 			} else {
 				world.getEntitiesWithinAABB(EntityLivingBase.class, this.getEntityBoundingBox().expand(45, 45, 45)).forEach(entity -> {
@@ -70,8 +65,7 @@ public class EntitySharktopus extends EntityWaterMob {
 			
 		} else {
 			getNavigator().tryMoveToEntityLiving(getAttackTarget(), 1);
-			if(getAttackTarget().getDistance(this) < 2){
-				System.out.println(getAttackTarget().getName());
+			if (getAttackTarget().getDistance(this) < 2) {
 				getAttackTarget().attackEntityFrom(CNObjects.SHARK_BITE, 4.0F);
 			}
 		}
@@ -94,43 +88,36 @@ public class EntitySharktopus extends EntityWaterMob {
 	}
 	
 	@Override
-	public boolean canBreatheUnderwater()
-	{
+	public boolean canBreatheUnderwater() {
 		return true;
 	}
 	
 	@Override
-	public boolean getCanSpawnHere()
-	{
+	public boolean getCanSpawnHere() {
 		return true;
 	}
 	
 	@Override
-	public boolean isNotColliding()
-	{
+	public boolean isNotColliding() {
 		return this.world.checkNoEntityCollision(this.getEntityBoundingBox(), this);
 	}
 	
 	@Override
-	public int getTalkInterval()
-	{
+	public int getTalkInterval() {
 		return 120;
 	}
 	
 	@Override
-	protected boolean canDespawn()
-	{
+	protected boolean canDespawn() {
 		return true;
 	}
 	
 	@Override
-	protected int getExperiencePoints(EntityPlayer player)
-	{
+	protected int getExperiencePoints(EntityPlayer player) {
 		return 1 + this.world.rand.nextInt(3);
 	}
 	
-	public boolean isPushedByWater()
-	{
+	public boolean isPushedByWater() {
 		return false;
 	}
 	

@@ -11,6 +11,7 @@ import net.minecraft.util.math.MathHelper;
  * Created using Tabula 5.1.0
  */
 public class ModelKothoga extends ModelBase {
+	private static float rad = (float) (Math.PI / 180);
 	ModelRenderer rear;
 	ModelRenderer rightarm;
 	ModelRenderer leftarm;
@@ -378,8 +379,8 @@ public class ModelKothoga extends ModelBase {
 	public void render(Entity entity, float limbSwing, float limbSwingAmount, float ticksExisted, float headyaw, float headpitch, float f5) {
 		GlStateManager.pushMatrix();
 		setRotationAngles(entity, limbSwing, limbSwingAmount, ticksExisted, headyaw, headpitch, f5);
-		GlStateManager.scale(2,2,2);
-		GlStateManager.translate(0,-0.7,0);
+		GlStateManager.scale(2, 2, 2);
+		GlStateManager.translate(0, -0.7, 0);
 		this.rightarm.render(f5);
 		this.leftleg1.render(f5);
 		this.leftarm.render(f5);
@@ -397,87 +398,88 @@ public class ModelKothoga extends ModelBase {
 		modelRenderer.rotateAngleY = y;
 		modelRenderer.rotateAngleZ = z;
 	}
-	private static float rad = (float) ( Math.PI/180 );
-	public void setRotationAngles(Entity entity, float limbSwing, float limbSwingAmount, float ticksExisted, float headyaw, float headpitch, float f5){
+	
+	public void setRotationAngles(Entity entity, float limbSwing, float limbSwingAmount, float ticksExisted, float headyaw, float headpitch, float f5) {
 		
-		float motion = MathHelper.sqrt( entity.motionX*entity.motionX + entity.motionY*entity.motionY + entity.motionZ*entity.motionZ );
-		ModelRenderer[] tail= {this.tail1,this.tail2,this.tail3,this.tail4,this.tail5};
-		float f1=0.6f;float f2=0.5F * limbSwingAmount;
-		this.neck.rotateAngleX=headpitch*rad/2;
-		this.head.rotateAngleX=this.neck.rotateAngleX;
-		this.neck.rotateAngleY=headyaw*rad/2;
-		this.head.rotateAngleY=this.neck.rotateAngleY;
-		this.lowerjaw.rotateAngleX=10*rad;
-		tail[0].rotateAngleX=-20*rad;
-		tail[1].rotateAngleX=15*rad;
-		tail[2].rotateAngleX=10*rad;
-		tail[3].rotateAngleX=5*rad;
-		tail[4].rotateAngleX=1*rad;
+		float motion = MathHelper.sqrt(entity.motionX * entity.motionX + entity.motionY * entity.motionY + entity.motionZ * entity.motionZ);
+		ModelRenderer[] tail = {this.tail1, this.tail2, this.tail3, this.tail4, this.tail5};
+		float f1 = 0.6f;
+		float f2 = 0.5F * limbSwingAmount;
+		this.neck.rotateAngleX = headpitch * rad / 2;
+		this.head.rotateAngleX = this.neck.rotateAngleX;
+		this.neck.rotateAngleY = headyaw * rad / 2;
+		this.head.rotateAngleY = this.neck.rotateAngleY;
+		this.lowerjaw.rotateAngleX = 10 * rad;
+		tail[0].rotateAngleX = -20 * rad;
+		tail[1].rotateAngleX = 15 * rad;
+		tail[2].rotateAngleX = 10 * rad;
+		tail[3].rotateAngleX = 5 * rad;
+		tail[4].rotateAngleX = 1 * rad;
 		//this.lowerjaw.rotateAngleX+=(MathHelper.cos( ticksExisted )*30+30)*rad;
-		if(motion>0.17f){
-			this.rightarm.rotateAngleX=10*rad+MathHelper.cos(limbSwing * 0.6662F) * 1F * limbSwingAmount;
-			this.rightarm2.rotateAngleX=-13*rad-(MathHelper.sin(limbSwing * 0.6662F)+0.5f) * 1F * limbSwingAmount;
-			this.rightleg1.rotateAngleX=33.91f*rad+MathHelper.sin(limbSwing * 0.6662F) * 1F * limbSwingAmount;
-			this.rightleg2.rotateAngleX=44.35f*rad-MathHelper.sin(limbSwing * 0.6662F) * 1F * limbSwingAmount;
-			this.rightleg3.rotateAngleX=-78.26f*rad+(MathHelper.cos(limbSwing * 0.6662F)+1f) * 1F * limbSwingAmount;
-			this.leftarm.rotateAngleX=10*rad+MathHelper.cos(6+limbSwing * 0.6662F) * 1F * limbSwingAmount;
-			this.leftarm2.rotateAngleX=-13*rad-(MathHelper.sin(6+limbSwing * 0.6662F)+0.5f) * 1F * limbSwingAmount;
-			this.leftleg1.rotateAngleX=33.91f*rad+MathHelper.cos(6+limbSwing * 0.6662F) * 1F * limbSwingAmount;
-			this.leftleg2.rotateAngleX=44.35f*rad-MathHelper.sin(6+limbSwing * 0.6662F) * 1F * limbSwingAmount;
-			this.leftleg3.rotateAngleX=-78.26f*rad+(MathHelper.sin(6+limbSwing * 0.6662F)+1f) * 1F * limbSwingAmount;
-			f2=0.2F * limbSwingAmount;
-			tail[0].rotateAngleY=MathHelper.cos(limbSwing * 0.6662F+(f1*5))*f2;
-			tail[1].rotateAngleY=MathHelper.cos(limbSwing * 0.6662F+(f1*4))*f2;
-			tail[2].rotateAngleY=MathHelper.cos(limbSwing * 0.6662F+(f1*3))*f2;
-			tail[3].rotateAngleY=MathHelper.cos(limbSwing * 0.6662F+(f1*2))*f2;
-			tail[4].rotateAngleY=MathHelper.cos(limbSwing * 0.6662F+(f1*1))*f2;
-			tail[0].rotateAngleX=0;
-			tail[1].rotateAngleX=0;
-			tail[2].rotateAngleX=0;
-			tail[3].rotateAngleX=0;
-			tail[4].rotateAngleX=0;
-		}else{
-			this.rightarm.rotateAngleX=10*rad+MathHelper.cos(limbSwing * 0.6662F) * 1F * limbSwingAmount;
-			this.rightarm2.rotateAngleX=-13*rad-(MathHelper.sin(limbSwing * 0.6662F)+0.5f) * 1F * limbSwingAmount;
-			this.rightleg1.rotateAngleX=33.91f*rad-MathHelper.sin(limbSwing * 0.6662F) * 1F * limbSwingAmount;
-			this.rightleg2.rotateAngleX=44.35f*rad+MathHelper.sin(limbSwing * 0.6662F) * 1F * limbSwingAmount;
-			this.rightleg3.rotateAngleX=-78.26f*rad-MathHelper.cos(limbSwing * 0.6662F) * 1F * limbSwingAmount;
-			this.leftarm.rotateAngleX=10*rad-MathHelper.cos(limbSwing * 0.6662F) * 1F * limbSwingAmount;
-			this.leftarm2.rotateAngleX=-13*rad-(MathHelper.cos(limbSwing * 0.6662F)+0.5f) * 1F * limbSwingAmount;
-			this.leftleg1.rotateAngleX=33.91f*rad+MathHelper.sin(limbSwing * 0.6662F) * 1F * limbSwingAmount;
-			this.leftleg2.rotateAngleX=44.35f*rad-MathHelper.sin(limbSwing * 0.6662F) * 1F * limbSwingAmount;
-			this.leftleg3.rotateAngleX=-78.26f*rad+MathHelper.cos(limbSwing * 0.6662F) * 1F * limbSwingAmount;
+		if (motion > 0.17f) {
+			this.rightarm.rotateAngleX = 10 * rad + MathHelper.cos(limbSwing * 0.6662F) * 1F * limbSwingAmount;
+			this.rightarm2.rotateAngleX = -13 * rad - (MathHelper.sin(limbSwing * 0.6662F) + 0.5f) * 1F * limbSwingAmount;
+			this.rightleg1.rotateAngleX = 33.91f * rad + MathHelper.sin(limbSwing * 0.6662F) * 1F * limbSwingAmount;
+			this.rightleg2.rotateAngleX = 44.35f * rad - MathHelper.sin(limbSwing * 0.6662F) * 1F * limbSwingAmount;
+			this.rightleg3.rotateAngleX = -78.26f * rad + (MathHelper.cos(limbSwing * 0.6662F) + 1f) * 1F * limbSwingAmount;
+			this.leftarm.rotateAngleX = 10 * rad + MathHelper.cos(6 + limbSwing * 0.6662F) * 1F * limbSwingAmount;
+			this.leftarm2.rotateAngleX = -13 * rad - (MathHelper.sin(6 + limbSwing * 0.6662F) + 0.5f) * 1F * limbSwingAmount;
+			this.leftleg1.rotateAngleX = 33.91f * rad + MathHelper.cos(6 + limbSwing * 0.6662F) * 1F * limbSwingAmount;
+			this.leftleg2.rotateAngleX = 44.35f * rad - MathHelper.sin(6 + limbSwing * 0.6662F) * 1F * limbSwingAmount;
+			this.leftleg3.rotateAngleX = -78.26f * rad + (MathHelper.sin(6 + limbSwing * 0.6662F) + 1f) * 1F * limbSwingAmount;
+			f2 = 0.2F * limbSwingAmount;
+			tail[0].rotateAngleY = MathHelper.cos(limbSwing * 0.6662F + (f1 * 5)) * f2;
+			tail[1].rotateAngleY = MathHelper.cos(limbSwing * 0.6662F + (f1 * 4)) * f2;
+			tail[2].rotateAngleY = MathHelper.cos(limbSwing * 0.6662F + (f1 * 3)) * f2;
+			tail[3].rotateAngleY = MathHelper.cos(limbSwing * 0.6662F + (f1 * 2)) * f2;
+			tail[4].rotateAngleY = MathHelper.cos(limbSwing * 0.6662F + (f1 * 1)) * f2;
+			tail[0].rotateAngleX = 0;
+			tail[1].rotateAngleX = 0;
+			tail[2].rotateAngleX = 0;
+			tail[3].rotateAngleX = 0;
+			tail[4].rotateAngleX = 0;
+		} else {
+			this.rightarm.rotateAngleX = 10 * rad + MathHelper.cos(limbSwing * 0.6662F) * 1F * limbSwingAmount;
+			this.rightarm2.rotateAngleX = -13 * rad - (MathHelper.sin(limbSwing * 0.6662F) + 0.5f) * 1F * limbSwingAmount;
+			this.rightleg1.rotateAngleX = 33.91f * rad - MathHelper.sin(limbSwing * 0.6662F) * 1F * limbSwingAmount;
+			this.rightleg2.rotateAngleX = 44.35f * rad + MathHelper.sin(limbSwing * 0.6662F) * 1F * limbSwingAmount;
+			this.rightleg3.rotateAngleX = -78.26f * rad - MathHelper.cos(limbSwing * 0.6662F) * 1F * limbSwingAmount;
+			this.leftarm.rotateAngleX = 10 * rad - MathHelper.cos(limbSwing * 0.6662F) * 1F * limbSwingAmount;
+			this.leftarm2.rotateAngleX = -13 * rad - (MathHelper.cos(limbSwing * 0.6662F) + 0.5f) * 1F * limbSwingAmount;
+			this.leftleg1.rotateAngleX = 33.91f * rad + MathHelper.sin(limbSwing * 0.6662F) * 1F * limbSwingAmount;
+			this.leftleg2.rotateAngleX = 44.35f * rad - MathHelper.sin(limbSwing * 0.6662F) * 1F * limbSwingAmount;
+			this.leftleg3.rotateAngleX = -78.26f * rad + MathHelper.cos(limbSwing * 0.6662F) * 1F * limbSwingAmount;
 			
 		}
 		
-		if(!entity.onGround&&entity.motionY>0.01f){
-			this.rightarm.rotateAngleX=motion;
-			this.rightarm2.rotateAngleX=motion;
-			this.leftarm.rotateAngleX=motion;
-			this.leftarm2.rotateAngleX=motion;
-			this.rightleg1.rotateAngleX=motion;
-			this.rightleg3.rotateAngleX=motion;
-			this.leftleg1.rotateAngleX=motion;
-			this.leftleg3.rotateAngleX=motion;
+		if (!entity.onGround && entity.motionY > 0.01f) {
+			this.rightarm.rotateAngleX = motion;
+			this.rightarm2.rotateAngleX = motion;
+			this.leftarm.rotateAngleX = motion;
+			this.leftarm2.rotateAngleX = motion;
+			this.rightleg1.rotateAngleX = motion;
+			this.rightleg3.rotateAngleX = motion;
+			this.leftleg1.rotateAngleX = motion;
+			this.leftleg3.rotateAngleX = motion;
 		}
 		
-		if(entity.isSneaking()){
-			this.rear.rotationPointY=12;
-			f2=2F * limbSwingAmount;
-			tail[0].rotateAngleX=-20*rad+MathHelper.sqrt(head.rotateAngleX*head.rotateAngleX);
-			tail[1].rotateAngleX=MathHelper.sqrt(head.rotateAngleX*head.rotateAngleX);
-			tail[2].rotateAngleX=tail[1].rotateAngleX;
-			tail[3].rotateAngleX=tail[1].rotateAngleX;
-			tail[4].rotateAngleX=tail[1].rotateAngleX;
-		}else{
-			this.rear.rotationPointY=9;
+		if (entity.isSneaking()) {
+			this.rear.rotationPointY = 12;
+			f2 = 2F * limbSwingAmount;
+			tail[0].rotateAngleX = -20 * rad + MathHelper.sqrt(head.rotateAngleX * head.rotateAngleX);
+			tail[1].rotateAngleX = MathHelper.sqrt(head.rotateAngleX * head.rotateAngleX);
+			tail[2].rotateAngleX = tail[1].rotateAngleX;
+			tail[3].rotateAngleX = tail[1].rotateAngleX;
+			tail[4].rotateAngleX = tail[1].rotateAngleX;
+		} else {
+			this.rear.rotationPointY = 9;
 		}
 		
-		tail[0].rotateAngleY=MathHelper.cos(limbSwing * 0.6662F+(f1*5))*f2;
-		tail[1].rotateAngleY=MathHelper.cos(limbSwing * 0.6662F+(f1*4))*f2;
-		tail[2].rotateAngleY=MathHelper.cos(limbSwing * 0.6662F+(f1*3))*f2;
-		tail[3].rotateAngleY=MathHelper.cos(limbSwing * 0.6662F+(f1*2))*f2;
-		tail[4].rotateAngleY=MathHelper.cos(limbSwing * 0.6662F+(f1*1))*f2;
+		tail[0].rotateAngleY = MathHelper.cos(limbSwing * 0.6662F + (f1 * 5)) * f2;
+		tail[1].rotateAngleY = MathHelper.cos(limbSwing * 0.6662F + (f1 * 4)) * f2;
+		tail[2].rotateAngleY = MathHelper.cos(limbSwing * 0.6662F + (f1 * 3)) * f2;
+		tail[3].rotateAngleY = MathHelper.cos(limbSwing * 0.6662F + (f1 * 2)) * f2;
+		tail[4].rotateAngleY = MathHelper.cos(limbSwing * 0.6662F + (f1 * 1)) * f2;
 		
 	}
 }

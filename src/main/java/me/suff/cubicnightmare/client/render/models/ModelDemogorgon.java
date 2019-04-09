@@ -10,6 +10,7 @@ import net.minecraft.util.math.MathHelper;
  * Created using Tabula 5.1.0
  */
 public class ModelDemogorgon extends ModelBase {
+	private static float rad = (float) (Math.PI / 180);
 	public ModelRenderer bodybase;
 	public ModelRenderer neck;
 	public ModelRenderer leftshoulder;
@@ -449,49 +450,49 @@ public class ModelDemogorgon extends ModelBase {
 		modelRenderer.rotateAngleY = y;
 		modelRenderer.rotateAngleZ = z;
 	}
-	private static float rad = (float) ( Math.PI/180 );
-	public void setRotationAngles(Entity entity, float limbSwing, float limbSwingAmount, float ticksExisted, float headyaw, float headpitch, float f5){
+	
+	public void setRotationAngles(Entity entity, float limbSwing, float limbSwingAmount, float ticksExisted, float headyaw, float headpitch, float f5) {
 		
-		float motion = MathHelper.sqrt( entity.motionX*entity.motionX + entity.motionY*entity.motionY + entity.motionZ*entity.motionZ );
+		float motion = MathHelper.sqrt(entity.motionX * entity.motionX + entity.motionY * entity.motionY + entity.motionZ * entity.motionZ);
 		
-		this.neck.rotateAngleX=headpitch*rad/2;
-		this.head.rotateAngleX=this.neck.rotateAngleX;
-		this.neck.rotateAngleY=headyaw*rad/2;
-		this.head.rotateAngleY=this.neck.rotateAngleY;
-		this.lowerjaw.rotateAngleX=10*rad;
+		this.neck.rotateAngleX = headpitch * rad / 2;
+		this.head.rotateAngleX = this.neck.rotateAngleX;
+		this.neck.rotateAngleY = headyaw * rad / 2;
+		this.head.rotateAngleY = this.neck.rotateAngleY;
+		this.lowerjaw.rotateAngleX = 10 * rad;
 		
-		this.bodybase.rotateAngleX=motion*2+20*rad;
+		this.bodybase.rotateAngleX = motion * 2 + 20 * rad;
 		
-		this.pedal11.rotateAngleX=10*rad+(MathHelper.sin( ticksExisted*0.1f +1)*30+30)*rad*0.5f;
-		this.pedal21.rotateAngleX=10*rad+(MathHelper.sin( ticksExisted*0.1f +2)*30+30)*rad*0.5f;
-		this.pedal31.rotateAngleX=10*rad+(MathHelper.sin( ticksExisted*0.1f +3)*30+30)*rad*0.5f;
-		this.pedal41.rotateAngleX=10*rad+(MathHelper.sin( ticksExisted*0.1f +4)*30+30)*rad*0.5f;
-		this.pedal51.rotateAngleX=10*rad+(MathHelper.sin( ticksExisted*0.1f +5)*30+30)*rad*0.5f;
+		this.pedal11.rotateAngleX = 10 * rad + (MathHelper.sin(ticksExisted * 0.1f + 1) * 30 + 30) * rad * 0.5f;
+		this.pedal21.rotateAngleX = 10 * rad + (MathHelper.sin(ticksExisted * 0.1f + 2) * 30 + 30) * rad * 0.5f;
+		this.pedal31.rotateAngleX = 10 * rad + (MathHelper.sin(ticksExisted * 0.1f + 3) * 30 + 30) * rad * 0.5f;
+		this.pedal41.rotateAngleX = 10 * rad + (MathHelper.sin(ticksExisted * 0.1f + 4) * 30 + 30) * rad * 0.5f;
+		this.pedal51.rotateAngleX = 10 * rad + (MathHelper.sin(ticksExisted * 0.1f + 5) * 30 + 30) * rad * 0.5f;
 		
-		this.rightleg1.rotateAngleX=-40.91f*rad-MathHelper.sin(limbSwing * 0.6662F) * 1F * limbSwingAmount;
-		this.rightleg2.rotateAngleX=30.26f*rad-MathHelper.cos(limbSwing * 0.6662F) * 1F * limbSwingAmount;
+		this.rightleg1.rotateAngleX = -40.91f * rad - MathHelper.sin(limbSwing * 0.6662F) * 1F * limbSwingAmount;
+		this.rightleg2.rotateAngleX = 30.26f * rad - MathHelper.cos(limbSwing * 0.6662F) * 1F * limbSwingAmount;
 		
-		this.leftleg1.rotateAngleX=-40.91f*rad+MathHelper.sin(limbSwing * 0.6662F) * 1F * limbSwingAmount;
-		this.leftleg2.rotateAngleX=30.26f*rad+MathHelper.cos(limbSwing * 0.6662F+3) * 1F * limbSwingAmount;
+		this.leftleg1.rotateAngleX = -40.91f * rad + MathHelper.sin(limbSwing * 0.6662F) * 1F * limbSwingAmount;
+		this.leftleg2.rotateAngleX = 30.26f * rad + MathHelper.cos(limbSwing * 0.6662F + 3) * 1F * limbSwingAmount;
 		
-		if(!entity.onGround&&entity.motionY>0.01f){
-			this.bodybase.rotateAngleX-=motion*2;
-			this.rightleg1.rotateAngleX=motion;
-			this.rightleg2.rotateAngleX=motion;
-			this.leftleg1.rotateAngleX=motion;
-			this.leftleg2.rotateAngleX=motion;
+		if (!entity.onGround && entity.motionY > 0.01f) {
+			this.bodybase.rotateAngleX -= motion * 2;
+			this.rightleg1.rotateAngleX = motion;
+			this.rightleg2.rotateAngleX = motion;
+			this.leftleg1.rotateAngleX = motion;
+			this.leftleg2.rotateAngleX = motion;
 		}
 		
-		this.bodybase.rotationPointY=-7;
-		this.bodybase.rotationPointZ=-MathHelper.cos( ticksExisted*0.08f )*0.6f;
+		this.bodybase.rotationPointY = -7;
+		this.bodybase.rotationPointZ = -MathHelper.cos(ticksExisted * 0.08f) * 0.6f;
 		
-		this.bodybase.rotateAngleX+=MathHelper.cos( ticksExisted*0.08f )*0.1f;
-		this.rightleg1.rotateAngleX-=MathHelper.cos( ticksExisted*0.08f )*0.1f;
-		this.leftleg1.rotateAngleX-=MathHelper.cos( ticksExisted*0.08f )*0.1f;
+		this.bodybase.rotateAngleX += MathHelper.cos(ticksExisted * 0.08f) * 0.1f;
+		this.rightleg1.rotateAngleX -= MathHelper.cos(ticksExisted * 0.08f) * 0.1f;
+		this.leftleg1.rotateAngleX -= MathHelper.cos(ticksExisted * 0.08f) * 0.1f;
 		
-		this.rightshoulder.rotateAngleX=-motion*20+60*rad-MathHelper.cos( ticksExisted*0.08f )*0.1f;
-		this.leftshoulder.rotateAngleX =-motion*20+60*rad-MathHelper.cos( ticksExisted*0.08f )*0.1f;
-		this.rightshoulder.rotateAngleZ=-motion*8+1.0f;
-		this.leftshoulder.rotateAngleZ =motion*8-1.0f;
+		this.rightshoulder.rotateAngleX = -motion * 20 + 60 * rad - MathHelper.cos(ticksExisted * 0.08f) * 0.1f;
+		this.leftshoulder.rotateAngleX = -motion * 20 + 60 * rad - MathHelper.cos(ticksExisted * 0.08f) * 0.1f;
+		this.rightshoulder.rotateAngleZ = -motion * 8 + 1.0f;
+		this.leftshoulder.rotateAngleZ = motion * 8 - 1.0f;
 	}
 }

@@ -11,13 +11,16 @@ public class SpawnUtil {
 	
 	
 	public static void setUpSpawns() {
-		EntitySpawnPlacementRegistry.setPlacementType(EntitySharktopus.class, EntityLiving.SpawnPlacementType.IN_WATER);
 		
+		//Sharktopus
+		EntitySpawnPlacementRegistry.setPlacementType(EntitySharktopus.class, EntityLiving.SpawnPlacementType.IN_WATER);
 		ForgeRegistries.BIOMES.getValuesCollection().forEach(biome -> {
-			if(biome.getRegistryName().toString().toLowerCase().contains("ocean")){
+			if (biome.getRegistryName().toString().toLowerCase().contains("ocean")) {
 				EntityRegistry.addSpawn(EntitySharktopus.class, 10, 4, 4, EnumCreatureType.WATER_CREATURE, biome);
 			}
 		});
+		
+		//Graboid
 		
 	}
 }

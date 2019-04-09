@@ -1,10 +1,7 @@
 package me.suff.cubicnightmare.client.render;
 
-import me.suff.cubicnightmare.CubicNightmare;
-import me.suff.cubicnightmare.client.render.models.ModelGraboid;
 import me.suff.cubicnightmare.client.render.models.ModelQuietMonster;
 import me.suff.cubicnightmare.utils.CNTextures;
-import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;

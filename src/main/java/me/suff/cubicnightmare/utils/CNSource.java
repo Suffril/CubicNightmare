@@ -11,7 +11,7 @@ public class CNSource extends DamageSource {
 	
 	public CNSource(String damageTypeIn) {
 		super(damageTypeIn);
-		this.message = "cn."+damageTypeIn+".source";
+		this.message = "cn." + damageTypeIn + ".source";
 	}
 	
 	@Override
