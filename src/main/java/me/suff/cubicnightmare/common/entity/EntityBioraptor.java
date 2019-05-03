@@ -1,15 +1,15 @@
 package me.suff.cubicnightmare.common.entity;
 
 import net.minecraft.block.material.Material;
-import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.world.World;
 
-public class EntityBioraptor extends EntityCreature {
+public class EntityBioraptor extends EntityMob {
 	
 	private static final DataParameter<Boolean> IS_BABY = EntityDataManager.<Boolean>createKey(EntityBioraptor.class, DataSerializers.BOOLEAN);
 	/**

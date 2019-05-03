@@ -1,7 +1,7 @@
 package me.suff.cubicnightmare.common.entity;
 
-import me.suff.cubicnightmare.common.CNObjects;
-import net.minecraft.entity.EntityCreature;
+import me.suff.cubicnightmare.common.entity.ai.CNLookHelper;
+import net.minecraft.block.Block;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAttackMelee;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
@@ -9,25 +9,24 @@ import net.minecraft.entity.ai.EntityAILeapAtTarget;
 import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
+import net.minecraft.entity.ai.EntityLookHelper;
+import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.InventoryHelper;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.datasync.DataParameter;
-import net.minecraft.network.datasync.DataSerializers;
-import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.util.DamageSource;
+import net.minecraft.init.SoundEvents;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class EntityDemogorgon extends EntityCreature {
+public class EntityDemodog extends EntityMob {
 	
-	private static final DataParameter<Boolean> OPEN_MOUTH = EntityDataManager.createKey(EntityDemogorgon.class, DataSerializers.BOOLEAN);
+	//Fixes a null crash
+	EntityLookHelper LOOK_HELPER = new CNLookHelper(EntityDemodog.this);
 	
-	public EntityDemogorgon(World worldIn) {
+	public EntityDemodog(World worldIn) {
 		super(worldIn);
-		this.setSize(0.6F, 2.7F);
+		this.setSize(1.4F, 0.9F);
 		
 		this.tasks.addTask(4, new EntityAILeapAtTarget(this, 0.4F));
 		this.tasks.addTask(5, new EntityAIAttackMelee(this, 1.0D, true));
@@ -41,40 +40,20 @@ public class EntityDemogorgon extends EntityCreature {
 	}
 	
 	@Override
-	protected void entityInit() {
-		super.entityInit();
-		getDataManager().register(OPEN_MOUTH, false);
-	}
-	
-	public boolean isMouthOpen() {
-		return getDataManager().get(OPEN_MOUTH);
-	}
-	
-	public void setOpenMouth(boolean open) {
-		getDataManager().set(OPEN_MOUTH, open);
-	}
-	
-	@Override
-	public void onUpdate() {
-		super.onUpdate();
-		
-		setOpenMouth(getAttackingEntity() != null);
-	}
-	
-	@Override
 	protected void applyEntityAttributes() {
 		super.applyEntityAttributes();
-		this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(35.0D);
-		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.23000000417232513D);
-		this.getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(2.0D);
+		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.30000001192092896D);
+		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(8.0D);
 		this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(2.0D);
 	}
 	
 	@Override
-	public void onDeath(DamageSource cause) {
-		super.onDeath(cause);
-		if (!world.isRemote) {
-			InventoryHelper.spawnItemStack(world, posX, posY, posZ, new ItemStack(CNObjects.DEMOGORGON_FLESH));
-		}
+	protected void playStepSound(BlockPos pos, Block blockIn) {
+		this.playSound(SoundEvents.ENTITY_WOLF_STEP, 0.15F, 1.0F);
+	}
+	
+	@Override
+	public EntityLookHelper getLookHelper() {
+		return LOOK_HELPER;
 	}
 }

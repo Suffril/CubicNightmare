@@ -3,6 +3,7 @@ package me.suff.cubicnightmare.client.handler;
 import me.suff.cubicnightmare.CubicNightmare;
 import me.suff.cubicnightmare.common.CNObjects;
 import me.suff.cubicnightmare.utils.CNUtil;
+import me.suff.cubicnightmare.utils.ClientUtils.RenderUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.ISound;
 import net.minecraft.client.audio.MusicTicker;
@@ -13,6 +14,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.SoundEvent;
 import net.minecraftforge.client.event.EntityViewRenderEvent;
+import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.event.sound.PlaySoundEvent;
 import net.minecraftforge.event.terraingen.BiomeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -21,6 +23,7 @@ import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.relauncher.Side;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
@@ -29,6 +32,7 @@ public class ClientHandler {
 	
 	
 	private static ISound playingMusic;
+	private static int GRAY = -5066062;
 	
 	@SubscribeEvent
 	public static void onPlaySound(PlaySoundEvent event) {
@@ -81,15 +85,11 @@ public class ClientHandler {
 					playingMusic = null;
 				}
 			}
-			
 		}
-		
 	}
 	
-	private static int GRAY = -5066062;
-	
 	@SubscribeEvent
-	public static void onColor(BiomeEvent.GetFoliageColor eve) {
+	public static void onColorFoliage(BiomeEvent.GetFoliageColor eve) {
 		if (Minecraft.getMinecraft().player == null) return;
 		EntityPlayer player = Minecraft.getMinecraft().player;
 		
@@ -99,7 +99,7 @@ public class ClientHandler {
 	}
 	
 	@SubscribeEvent
-	public static void onColor(BiomeEvent.GetGrassColor eve) {
+	public static void onColorGrass(BiomeEvent.GetGrassColor eve) {
 		if (Minecraft.getMinecraft().player == null) return;
 		EntityPlayer player = Minecraft.getMinecraft().player;
 		
@@ -109,13 +109,20 @@ public class ClientHandler {
 	}
 	
 	@SubscribeEvent
-	public static void onColor(BiomeEvent.GetWaterColor eve) {
+	public static void onColorWater(BiomeEvent.GetWaterColor eve) {
 		if (Minecraft.getMinecraft().player == null) return;
 		EntityPlayer player = Minecraft.getMinecraft().player;
 		
 		if (CNUtil.isUpsideDownDimension(player.world)) {
 			eve.setNewColor(Color.MAGENTA.darker().darker().darker().darker().getRGB());
 		}
+	}
+	
+	
+	@SubscribeEvent
+	public static void registerModels(ModelRegistryEvent ev) {
+		CNObjects.ITEMS.forEach(RenderUtil::setItemRender);
+		CNObjects.ITEMS = new ArrayList<>();
 	}
 	
 	private static void spawnAmbientParticles(EntityPlayer player) {

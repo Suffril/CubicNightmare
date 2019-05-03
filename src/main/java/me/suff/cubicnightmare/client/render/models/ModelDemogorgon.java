@@ -1,7 +1,7 @@
 package me.suff.cubicnightmare.client.render.models;
 
 import me.suff.cubicnightmare.common.entity.EntityDemogorgon;
-import net.minecraft.client.model.ModelBase;
+import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.MathHelper;
@@ -10,7 +10,7 @@ import net.minecraft.util.math.MathHelper;
  * Demogorgon - BOTMON
  * Created using Tabula 5.1.0
  */
-public class ModelDemogorgon extends ModelBase {
+public class ModelDemogorgon extends ModelBiped {
 	private static float rad = (float) (Math.PI / 180);
 	public ModelRenderer bodybase;
 	public ModelRenderer neck;
@@ -502,5 +502,6 @@ public class ModelDemogorgon extends ModelBase {
 		this.leftshoulder.rotateAngleX = -motion * 20 + 60 * rad - MathHelper.cos(ticksExisted * 0.08f) * 0.1f;
 		this.rightshoulder.rotateAngleZ = -motion * 8 + 1.0f;
 		this.leftshoulder.rotateAngleZ = motion * 8 - 1.0f;
+		
 	}
 }
