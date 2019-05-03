@@ -10,10 +10,10 @@ import java.util.Random;
 
 public class EntityAIWanderSwim extends EntityAIBase {
 	
-	public EntityLiving mob;
-	public double speed;
-	public long time = -1;
-	Random rand = new Random();
+	private EntityLiving mob;
+	private double speed;
+	private long time = -1;
+	private Random rand = new Random();
 	
 	
 	public EntityAIWanderSwim(EntityLiving mob, double speed) {

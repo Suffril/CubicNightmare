@@ -30,12 +30,12 @@ public class EntityGraboid extends EntityMob {
 		this.targetTasks.addTask(2, new EntityAINearestAttackableTarget<>(this, EntityPlayer.class, true));
 	}
 	
-	public void setDiving(boolean diving){
-		getDataManager().get(IS_DIVING);
+	public boolean isDiving() {
+		return getDataManager().get(IS_DIVING);
 	}
 	
-	public boolean isDiving(){
-		return getDataManager().get(IS_DIVING);
+	public void setDiving(boolean diving) {
+		getDataManager().get(IS_DIVING);
 	}
 	
 	@Override

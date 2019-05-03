@@ -1,5 +1,6 @@
 package me.suff.cubicnightmare;
 
+import me.suff.cubicnightmare.common.dimensions.CNDimensions;
 import me.suff.cubicnightmare.proxy.CommonProxy;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
@@ -22,6 +23,7 @@ public class CubicNightmare {
 	@EventHandler
 	public void pre(FMLPreInitializationEvent event) {
 		proxy.pre();
+		CNDimensions.register();
 	}
 	
 	@EventHandler

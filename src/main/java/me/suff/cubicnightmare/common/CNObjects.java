@@ -10,6 +10,7 @@ import me.suff.cubicnightmare.common.entity.EntitySharktopus;
 import me.suff.cubicnightmare.utils.CNSource;
 import me.suff.cubicnightmare.utils.SpawnUtil;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -23,11 +24,23 @@ public class CNObjects {
 	
 	public static CNSource SHARK_BITE = new CNSource("shark_bite");
 	
+	public static final SoundEvent USD_AMBIENCE = setUpSound("usd_ambience");
+	
 	@SubscribeEvent
 	public static void addEntities(RegistryEvent.Register<EntityEntry> e) {
 		IForgeRegistry<EntityEntry> reg = e.getRegistry();
 		reg.registerAll(EntityEntries.SHARK, EntityEntries.KOTHOGA, EntityEntries.GRABOID, EntityEntries.DEMOGORGON, EntityEntries.BIORAPTOR, EntityEntries.QUIET_MONSTER);
 		SpawnUtil.setUpSpawns();
+	}
+	
+	@SubscribeEvent
+	public static void addSounds(RegistryEvent.Register<SoundEvent> e) {
+		IForgeRegistry<SoundEvent> reg = e.getRegistry();
+		reg.registerAll(USD_AMBIENCE);
+	}
+	
+	private static SoundEvent setUpSound(String soundName) {
+		return new SoundEvent(new ResourceLocation(CubicNightmare.MODID, soundName)).setRegistryName(soundName);
 	}
 	
 	@GameRegistry.ObjectHolder(CubicNightmare.MODID)

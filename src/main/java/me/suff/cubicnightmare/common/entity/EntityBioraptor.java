@@ -11,6 +11,7 @@ import net.minecraft.world.World;
 
 public class EntityBioraptor extends EntityCreature {
 	
+	private static final DataParameter<Boolean> IS_BABY = EntityDataManager.<Boolean>createKey(EntityBioraptor.class, DataSerializers.BOOLEAN);
 	/**
 	 * Random offset used in floating behaviour
 	 */
@@ -19,8 +20,6 @@ public class EntityBioraptor extends EntityCreature {
 	 * ticks until heightOffset is randomized
 	 */
 	private int heightOffsetUpdateTime;
-	
-	private static final DataParameter<Boolean> IS_BABY = EntityDataManager.<Boolean>createKey(EntityBioraptor.class, DataSerializers.BOOLEAN);
 	
 	public EntityBioraptor(World worldIn) {
 		super(worldIn);
@@ -49,7 +48,7 @@ public class EntityBioraptor extends EntityCreature {
 		
 		EntityLivingBase entitylivingbase = this.getAttackTarget();
 		
-		if (this.isInWater() || world.getBlockState(getPosition().down()).getMaterial() == Material.WATER ||entitylivingbase != null && entitylivingbase.posY + (double) entitylivingbase.getEyeHeight() > this.posY + (double) this.getEyeHeight() + (double) this.heightOffset) {
+		if (this.isInWater() || world.getBlockState(getPosition().down()).getMaterial() == Material.WATER || entitylivingbase != null && entitylivingbase.posY + (double) entitylivingbase.getEyeHeight() > this.posY + (double) this.getEyeHeight() + (double) this.heightOffset) {
 			this.motionY += (0.30000001192092896D - this.motionY) * 0.30000001192092896D;
 			this.isAirBorne = true;
 		}

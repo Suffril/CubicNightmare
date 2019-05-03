@@ -1,5 +1,6 @@
 package me.suff.cubicnightmare.client.render.models;
 
+import me.suff.cubicnightmare.common.entity.EntityDemogorgon;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
@@ -438,7 +439,7 @@ public class ModelDemogorgon extends ModelBase {
 	
 	@Override
 	public void render(Entity entity, float limbSwing, float limbSwingAmount, float ticksExisted, float headyaw, float headpitch, float f5) {
-		setRotationAngles(entity, limbSwing, limbSwingAmount, ticksExisted, headyaw, headpitch, f5);
+		setRotationAngles(limbSwing, limbSwingAmount, ticksExisted, headyaw, headpitch, f5, entity);
 		this.bodybase.render(f5);
 	}
 	
@@ -451,24 +452,31 @@ public class ModelDemogorgon extends ModelBase {
 		modelRenderer.rotateAngleZ = z;
 	}
 	
-	public void setRotationAngles(Entity entity, float limbSwing, float limbSwingAmount, float ticksExisted, float headyaw, float headpitch, float f5) {
+	
+	@Override
+	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entity) {
 		
 		float motion = MathHelper.sqrt(entity.motionX * entity.motionX + entity.motionY * entity.motionY + entity.motionZ * entity.motionZ);
+		float ticksExisted = entity.ticksExisted;
 		
-		this.neck.rotateAngleX = headpitch * rad / 2;
+		this.neck.rotateAngleX = headPitch * rad / 2;
 		this.head.rotateAngleX = this.neck.rotateAngleX;
-		this.neck.rotateAngleY = headyaw * rad / 2;
+		this.neck.rotateAngleY = netHeadYaw * rad / 2;
 		this.head.rotateAngleY = this.neck.rotateAngleY;
 		this.lowerjaw.rotateAngleX = 10 * rad;
 		
 		this.bodybase.rotateAngleX = motion * 2 + 20 * rad;
 		
-		this.pedal11.rotateAngleX = 10 * rad + (MathHelper.sin(ticksExisted * 0.1f + 1) * 30 + 30) * rad * 0.5f;
-		this.pedal21.rotateAngleX = 10 * rad + (MathHelper.sin(ticksExisted * 0.1f + 2) * 30 + 30) * rad * 0.5f;
-		this.pedal31.rotateAngleX = 10 * rad + (MathHelper.sin(ticksExisted * 0.1f + 3) * 30 + 30) * rad * 0.5f;
-		this.pedal41.rotateAngleX = 10 * rad + (MathHelper.sin(ticksExisted * 0.1f + 4) * 30 + 30) * rad * 0.5f;
-		this.pedal51.rotateAngleX = 10 * rad + (MathHelper.sin(ticksExisted * 0.1f + 5) * 30 + 30) * rad * 0.5f;
-		
+		if (entity instanceof EntityDemogorgon) {
+			EntityDemogorgon entityDemogorgon = (EntityDemogorgon) entity;
+			if (entityDemogorgon.isMouthOpen()) {
+				this.pedal11.rotateAngleX = 10 * rad + (MathHelper.sin(ticksExisted * 0.1f + 1) * 30 + 30) * rad * 0.5f;
+				this.pedal21.rotateAngleX = 10 * rad + (MathHelper.sin(ticksExisted * 0.1f + 2) * 30 + 30) * rad * 0.5f;
+				this.pedal31.rotateAngleX = 10 * rad + (MathHelper.sin(ticksExisted * 0.1f + 3) * 30 + 30) * rad * 0.5f;
+				this.pedal41.rotateAngleX = 10 * rad + (MathHelper.sin(ticksExisted * 0.1f + 4) * 30 + 30) * rad * 0.5f;
+				this.pedal51.rotateAngleX = 10 * rad + (MathHelper.sin(ticksExisted * 0.1f + 5) * 30 + 30) * rad * 0.5f;
+			}
+		}
 		this.rightleg1.rotateAngleX = -40.91f * rad - MathHelper.sin(limbSwing * 0.6662F) * 1F * limbSwingAmount;
 		this.rightleg2.rotateAngleX = 30.26f * rad - MathHelper.cos(limbSwing * 0.6662F) * 1F * limbSwingAmount;
 		
