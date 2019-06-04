@@ -1,4 +1,4 @@
-package me.suff.cubicnightmare.utils.ClientUtils;
+package me.suff.cubicnightmare.utils.client;
 
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;

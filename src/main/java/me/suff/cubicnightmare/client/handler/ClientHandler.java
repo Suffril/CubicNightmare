@@ -3,7 +3,7 @@ package me.suff.cubicnightmare.client.handler;
 import me.suff.cubicnightmare.CubicNightmare;
 import me.suff.cubicnightmare.common.CNObjects;
 import me.suff.cubicnightmare.utils.CNUtil;
-import me.suff.cubicnightmare.utils.ClientUtils.RenderUtil;
+import me.suff.cubicnightmare.utils.client.RenderUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.ISound;
 import net.minecraft.client.audio.MusicTicker;

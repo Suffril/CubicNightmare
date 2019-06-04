@@ -29,6 +29,9 @@ public class CNObjects {
 	
 	//SOUNDS
 	public static final SoundEvent USD_AMBIENCE = setUpSound("usd_ambience");
+	public static final SoundEvent DEMODOG_AMBIENCE = setUpSound("demodog_ambient");
+
+
 	public static List<Item> ITEMS = new ArrayList<>();
 	public static final Item DEMOGORGON_FLESH = setUpItem(new Item(), "demogorgon_flesh");
 	public static CNSource SHARK_BITE = new CNSource("shark_bite");
@@ -43,7 +46,7 @@ public class CNObjects {
 	@SubscribeEvent
 	public static void addSounds(RegistryEvent.Register<SoundEvent> e) {
 		IForgeRegistry<SoundEvent> reg = e.getRegistry();
-		reg.registerAll(USD_AMBIENCE);
+		reg.registerAll(USD_AMBIENCE, DEMODOG_AMBIENCE);
 	}
 	
 	

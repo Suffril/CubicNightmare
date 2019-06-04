@@ -8,6 +8,16 @@
         "stream": true
       }
     ]
+  },
+  "demodog_ambient": {
+    "category": "hostile",
+    "subtitle": "cubicnightmare.subtitles.demodog_ambient",
+    "sounds": [
+      {
+        "name": "cubic_nightmare:demodog/demodogs_ambient",
+        "stream": true
+      }
+    ]
   }
 }
 

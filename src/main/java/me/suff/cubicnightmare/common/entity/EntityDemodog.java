@@ -1,5 +1,6 @@
 package me.suff.cubicnightmare.common.entity;
 
+import me.suff.cubicnightmare.common.CNObjects;
 import me.suff.cubicnightmare.common.entity.ai.CNLookHelper;
 import net.minecraft.block.Block;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -16,8 +17,11 @@ import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+
+import javax.annotation.Nullable;
 
 public class EntityDemodog extends EntityMob {
 	
@@ -51,7 +55,13 @@ public class EntityDemodog extends EntityMob {
 	protected void playStepSound(BlockPos pos, Block blockIn) {
 		this.playSound(SoundEvents.ENTITY_WOLF_STEP, 0.15F, 1.0F);
 	}
-	
+
+	@Nullable
+	@Override
+	protected SoundEvent getAmbientSound() {
+		return CNObjects.DEMODOG_AMBIENCE;
+	}
+
 	@Override
 	public EntityLookHelper getLookHelper() {
 		return LOOK_HELPER;

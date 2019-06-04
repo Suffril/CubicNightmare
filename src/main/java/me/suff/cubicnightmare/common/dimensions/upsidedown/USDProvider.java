@@ -1,5 +1,7 @@
 package me.suff.cubicnightmare.common.dimensions.upsidedown;
 
+import me.suff.cubicnightmare.proxy.ClientProxy;
+import net.minecraft.client.audio.MusicTicker;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.WorldProviderSurface;
@@ -82,4 +84,9 @@ public class USDProvider extends WorldProviderSurface {
 		world.updateWeatherBody();
 	}
 	
+	@Nullable
+	@Override
+	public MusicTicker.MusicType getMusicType() {
+		return ClientProxy.USD_MUSIC;
+	}
 }

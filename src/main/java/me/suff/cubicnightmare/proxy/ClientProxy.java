@@ -7,6 +7,7 @@ import me.suff.cubicnightmare.client.render.RenderGraboid;
 import me.suff.cubicnightmare.client.render.RenderKothoga;
 import me.suff.cubicnightmare.client.render.RenderQuietMonster;
 import me.suff.cubicnightmare.client.render.RenderSharktopus;
+import me.suff.cubicnightmare.common.CNObjects;
 import me.suff.cubicnightmare.common.entity.EntityBioraptor;
 import me.suff.cubicnightmare.common.entity.EntityDemodog;
 import me.suff.cubicnightmare.common.entity.EntityDemogorgon;
@@ -14,9 +15,13 @@ import me.suff.cubicnightmare.common.entity.EntityGraboid;
 import me.suff.cubicnightmare.common.entity.EntityKothoga;
 import me.suff.cubicnightmare.common.entity.EntityQuietMonster;
 import me.suff.cubicnightmare.common.entity.EntitySharktopus;
+import net.minecraft.client.audio.MusicTicker;
+import net.minecraftforge.client.EnumHelperClient;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 
 public class ClientProxy extends CommonProxy {
+	
+	public static MusicTicker.MusicType USD_MUSIC = EnumHelperClient.addMusicType("USD_AMBIENT", CNObjects.USD_AMBIENCE, 0, 800);
 	
 	@Override
 	public void pre() {
