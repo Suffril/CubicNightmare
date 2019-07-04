@@ -66,6 +66,7 @@ public class USDProvider extends WorldProviderSurface {
 		}
 	}
 	
+	
 	@Override
 	public void calculateInitialWeather() {
 		world.thunderingStrength = 1.0F;
@@ -89,4 +90,5 @@ public class USDProvider extends WorldProviderSurface {
 	public MusicTicker.MusicType getMusicType() {
 		return ClientProxy.USD_MUSIC;
 	}
+	
 }

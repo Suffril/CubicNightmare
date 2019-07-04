@@ -15,9 +15,82 @@
     "sounds": [
       {
         "name": "cubic_nightmare:demodog/demodogs_ambient",
-        "stream": true
+        "stream": false
+      }
+    ]
+  },
+  "demodog_call": {
+    "category": "hostile",
+    "subtitle": "cubicnightmare.subtitles.demodog_call",
+    "sounds": [
+      {
+        "name": "cubic_nightmare:demodog/demodog_call",
+        "stream": false
+      }
+    ]
+  },
+  "demodog_screech": {
+    "category": "hostile",
+    "subtitle": "cubicnightmare.subtitles.demodog_screech",
+    "sounds": [
+      {
+        "name": "cubic_nightmare:demodog/demodog_screech",
+        "stream": false
+      }
+    ]
+  },
+  "quiet_monster_ambient": {
+    "category": "hostile",
+    "subtitle": "cubicnightmare.subtitles.quiet_monster_ambient",
+    "sounds": [
+      {
+        "name": "cubic_nightmare:quiet_monster/q_ambient",
+        "stream": false
+      },
+      {
+        "name": "cubic_nightmare:quiet_monster/q_ambient_2",
+        "stream": false
+      }
+    ]
+  },
+  "quiet_monster_aggro": {
+    "category": "hostile",
+    "subtitle": "cubicnightmare.subtitles.quiet_monster_aggro",
+    "sounds": [
+      {
+        "name": "cubic_nightmare:quiet_monster/q_aggro_roar",
+        "stream": false
+      }
+    ]
+  },
+  "sharktopus_aggro": {
+    "category": "hostile",
+    "subtitle": "cubicnightmare.subtitles.sharktopus_aggro",
+    "sounds": [
+      {
+        "name": "cubic_nightmare:sharktopus/aggro_roar",
+        "stream": false
+      }
+    ]
+  },
+  "sharktopus_bite": {
+    "category": "hostile",
+    "subtitle": "cubicnightmare.subtitles.sharktopus_bite",
+    "sounds": [
+      {
+        "name": "cubic_nightmare:sharktopus/bite",
+        "stream": false
+      }
+    ]
+  },
+  "sharktopus_breathing": {
+    "category": "hostile",
+    "subtitle": "cubicnightmare.subtitles.sharktopus_breathing",
+    "sounds": [
+      {
+        "name": "cubic_nightmare:sharktopus/breathing",
+        "stream": false
       }
     ]
   }
 }
-

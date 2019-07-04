@@ -10,7 +10,7 @@ public class CNDimensions {
 	public static DimensionType usdType;
 	
 	public static void register() {
-		usdType = DimensionType.register("upside_down", "upside_down", USD_ID, USDProvider.class, false);
+		usdType = DimensionType.register("upside_down", "upside_down", USD_ID, USDProvider.class, true);
 		DimensionManager.registerDimension(USD_ID, usdType);
 	}
 	

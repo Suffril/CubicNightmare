@@ -1,6 +1,7 @@
 package me.suff.cubicnightmare.client.handler;
 
 import me.suff.cubicnightmare.CubicNightmare;
+import me.suff.cubicnightmare.client.particles.ParticleUpsideDown;
 import me.suff.cubicnightmare.common.CNObjects;
 import me.suff.cubicnightmare.utils.CNUtil;
 import me.suff.cubicnightmare.utils.client.RenderUtil;
@@ -11,7 +12,7 @@ import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.util.SoundEvent;
 import net.minecraftforge.client.event.EntityViewRenderEvent;
 import net.minecraftforge.client.event.ModelRegistryEvent;
@@ -29,7 +30,6 @@ import java.util.Random;
 
 @Mod.EventBusSubscriber(value = Side.CLIENT, modid = CubicNightmare.MODID)
 public class ClientHandler {
-	
 	
 	private static ISound playingMusic;
 	private static int GRAY = -5066062;
@@ -58,7 +58,7 @@ public class ClientHandler {
 		if (Minecraft.getMinecraft().world != null && CNUtil.isUpsideDownDimension(Minecraft.getMinecraft().world)) {
 			GlStateManager.setFog(GlStateManager.FogMode.EXP);
 			event.setCanceled(true);
-			event.setDensity(0.04F);
+			event.setDensity(0.02F);
 		}
 	}
 	
@@ -78,7 +78,6 @@ public class ClientHandler {
 		
 		if (CNUtil.isUpsideDownDimension(player.world)) {
 			spawnAmbientParticles(player);
-			
 			
 			if (event.phase == TickEvent.Phase.END) {
 				if (playingMusic != null && !Minecraft.getMinecraft().getSoundHandler().isSoundPlaying(playingMusic)) {
@@ -137,8 +136,11 @@ public class ClientHandler {
 			double velocityX = (random.nextDouble() - 0.5) * 0.02;
 			double velocityY = (random.nextDouble() - 0.5) * 0.02;
 			double velocityZ = (random.nextDouble() - 0.5) * 0.02;
-			player.world.spawnParticle(EnumParticleTypes.END_ROD, particleX, particleY, particleZ, velocityX, velocityY, velocityZ);
-			if (player.world.rand.nextInt(50) < 10 && player.world.rand.nextBoolean()) {
+			Minecraft.getMinecraft().effectRenderer.addEffect(new ParticleUpsideDown(player.world, particleX, particleY, particleZ, velocityX, velocityY, velocityZ));
+			if (player.world.rand.nextInt(30) < 10 && player.world.rand.nextBoolean()) {
+				if (player.world.getTotalWorldTime() % random.nextInt(125) + 1 == 0) {
+					Minecraft.getMinecraft().getSoundHandler().playSound(PositionedSoundRecord.getRecord(SoundEvents.ENTITY_LIGHTNING_THUNDER, 1, 1));
+				}
 				player.world.addWeatherEffect(new EntityLightningBolt(player.world, particleX + random.nextInt(500), particleY + random.nextInt(500), particleZ + random.nextInt(500), true));
 			}
 		}

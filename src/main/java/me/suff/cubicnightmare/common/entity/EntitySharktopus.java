@@ -2,12 +2,21 @@ package me.suff.cubicnightmare.common.entity;
 
 import com.google.common.base.Predicate;
 import net.minecraft.block.material.Material;
-import net.minecraft.entity.*;
-import net.minecraft.entity.ai.*;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.MoverType;
+import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.EntityAIBase;
+import net.minecraft.entity.ai.EntityAILookIdle;
+import net.minecraft.entity.ai.EntityAIMoveTowardsRestriction;
+import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
+import net.minecraft.entity.ai.EntityAIWander;
+import net.minecraft.entity.ai.EntityAIWatchClosest;
+import net.minecraft.entity.ai.EntityLookHelper;
+import net.minecraft.entity.ai.EntityMoveHelper;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.passive.EntitySquid;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.SoundEvents;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
@@ -15,22 +24,16 @@ import net.minecraft.pathfinding.PathNavigate;
 import net.minecraft.pathfinding.PathNavigateSwimmer;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import net.minecraft.world.storage.loot.LootTableList;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nullable;
 
 public class EntitySharktopus extends EntityMob {
-	private static final DataParameter<Boolean> MOVING = EntityDataManager.<Boolean>createKey(EntitySharktopus.class, DataSerializers.BOOLEAN);
-	private static final DataParameter<Integer> TARGET_ENTITY = EntityDataManager.<Integer>createKey(EntitySharktopus.class, DataSerializers.VARINT);
+	private static final DataParameter<Boolean> MOVING = EntityDataManager.createKey(EntitySharktopus.class, DataSerializers.BOOLEAN);
+	private static final DataParameter<Integer> TARGET_ENTITY = EntityDataManager.createKey(EntitySharktopus.class, DataSerializers.VARINT);
 	private EntityLivingBase targetedEntity;
 	protected EntityAIWander wander;
 
@@ -73,28 +76,24 @@ public class EntitySharktopus extends EntityMob {
 
 	protected void entityInit() {
 		super.entityInit();
-		this.dataManager.register(MOVING, Boolean.valueOf(false));
-		this.dataManager.register(TARGET_ENTITY, Integer.valueOf(0));
+		this.dataManager.register(MOVING, Boolean.FALSE);
+		this.dataManager.register(TARGET_ENTITY, 0);
 	}
 
 	public boolean isMoving() {
-		return ((Boolean) this.dataManager.get(MOVING)).booleanValue();
+		return this.dataManager.get(MOVING);
 	}
 
 	private void setMoving(boolean moving) {
-		this.dataManager.set(MOVING, Boolean.valueOf(moving));
+		this.dataManager.set(MOVING, moving);
 	}
 
 	public int getAttackDuration() {
 		return 80;
 	}
 
-	private void setTargetedEntity(int entityId) {
-		this.dataManager.set(TARGET_ENTITY, Integer.valueOf(entityId));
-	}
-
 	public boolean hasTargetedEntity() {
-		return ((Integer) this.dataManager.get(TARGET_ENTITY)).intValue() != 0;
+		return this.dataManager.get(TARGET_ENTITY) != 0;
 	}
 
 	@Nullable
@@ -105,7 +104,7 @@ public class EntitySharktopus extends EntityMob {
 			if (this.targetedEntity != null) {
 				return this.targetedEntity;
 			} else {
-				Entity entity = this.world.getEntityByID(((Integer) this.dataManager.get(TARGET_ENTITY)).intValue());
+				Entity entity = this.world.getEntityByID(this.dataManager.get(TARGET_ENTITY));
 
 				if (entity instanceof EntityLivingBase) {
 					this.targetedEntity = (EntityLivingBase) entity;
@@ -117,6 +116,10 @@ public class EntitySharktopus extends EntityMob {
 		} else {
 			return this.getAttackTarget();
 		}
+	}
+	
+	private void setTargetedEntity(int entityId) {
+		this.dataManager.set(TARGET_ENTITY, entityId);
 	}
 
 	public void notifyDataManagerChange(DataParameter<?> key) {
@@ -206,11 +209,7 @@ public class EntitySharktopus extends EntityMob {
 
 		super.onLivingUpdate();
 	}
-
-	protected SoundEvent getFlopSound() {
-		return SoundEvents.ENTITY_ELDER_GUARDIAN_FLOP;
-	}
-
+	
 	/**
 	 * Checks to make sure the light is not too bright where the mob is spawning
 	 */
@@ -314,7 +313,7 @@ public class EntitySharktopus extends EntityMob {
 		 */
 		public void resetTask() {
 			this.shark.setTargetedEntity(0);
-			this.shark.setAttackTarget((EntityLivingBase) null);
+			this.shark.setAttackTarget(null);
 			this.shark.wander.makeUpdate();
 		}
 
@@ -327,7 +326,7 @@ public class EntitySharktopus extends EntityMob {
 			this.shark.getLookHelper().setLookPositionWithEntity(entitylivingbase, 90.0F, 90.0F);
 
 			if (!this.shark.canEntityBeSeen(entitylivingbase)) {
-				this.shark.setAttackTarget((EntityLivingBase) null);
+				this.shark.setAttackTarget(null);
 			} else {
 				++this.tickCounter;
 
