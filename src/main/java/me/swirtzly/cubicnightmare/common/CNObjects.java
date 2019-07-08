@@ -6,6 +6,7 @@ import me.swirtzly.cubicnightmare.common.entity.EntityDemodog;
 import me.swirtzly.cubicnightmare.common.entity.EntityDemogorgon;
 import me.swirtzly.cubicnightmare.common.entity.EntityGraboid;
 import me.swirtzly.cubicnightmare.common.entity.EntityKothoga;
+import me.swirtzly.cubicnightmare.common.entity.EntityPortal;
 import me.swirtzly.cubicnightmare.common.entity.EntityQuietMonster;
 import me.swirtzly.cubicnightmare.common.entity.EntitySharktopus;
 import me.swirtzly.cubicnightmare.utils.CNSource;
@@ -39,7 +40,7 @@ public class CNObjects {
 	@SubscribeEvent
 	public static void addEntities(RegistryEvent.Register<EntityEntry> e) {
 		IForgeRegistry<EntityEntry> reg = e.getRegistry();
-		reg.registerAll(EntityEntries.SHARK, EntityEntries.KOTHOGA, EntityEntries.GRABOID, EntityEntries.DEMOGORGON, EntityEntries.BIORAPTOR, EntityEntries.QUIET_MONSTER, EntityEntries.DEMODOG);
+		reg.registerAll(EntityEntries.SHARK, EntityEntries.KOTHOGA, EntityEntries.GRABOID, EntityEntries.DEMOGORGON, EntityEntries.BIORAPTOR, EntityEntries.QUIET_MONSTER, EntityEntries.DEMODOG, EntityEntries.PORTAL);
 		SpawnUtil.setUpSpawns();
 	}
 	
@@ -70,5 +71,6 @@ public class CNObjects {
 		public static final EntityEntry QUIET_MONSTER = EntityEntryBuilder.create().entity(EntityQuietMonster.class).id(new ResourceLocation(CubicNightmare.MODID, "quiet_monster"), 4).name("quiet_monster").tracker(80, 3, false).build();
 		public static final EntityEntry BIORAPTOR = EntityEntryBuilder.create().entity(EntityBioraptor.class).id(new ResourceLocation(CubicNightmare.MODID, "bioraptor"), 5).name("bioraptor").tracker(80, 3, false).build();
 		public static final EntityEntry DEMODOG = EntityEntryBuilder.create().entity(EntityDemodog.class).id(new ResourceLocation(CubicNightmare.MODID, "demodog"), 6).name("demodog").tracker(80, 3, false).build();
+		public static final EntityEntry PORTAL = EntityEntryBuilder.create().entity(EntityPortal.class).id(new ResourceLocation(CubicNightmare.MODID, "portal"), 7).name("portal").tracker(80, 3, false).build();
 	}
 }

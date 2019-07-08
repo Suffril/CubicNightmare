@@ -1,5 +1,6 @@
 package me.swirtzly.cubicnightmare.client.render.models;
 
+import me.swirtzly.cubicnightmare.common.entity.EntityGraboid;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.GlStateManager;
@@ -655,6 +656,15 @@ public class ModelGraboid extends ModelBase {
 	
 	@Override
 	public void render(Entity entity, float limbSwing, float limbSwingAmount, float ticksExisted, float headyaw, float headpitch, float f5) {
+		
+		if (entity instanceof EntityGraboid) {
+			EntityGraboid graboid = (EntityGraboid) entity;
+			if (graboid.isDiving()) {
+				entity.spawnRunningParticles();
+				return;
+			}
+		}
+		
 		
 		GlStateManager.pushMatrix();
 		GlStateManager.rotate(-headyaw, 0, 1, 0);

@@ -1,5 +1,6 @@
 package me.swirtzly.cubicnightmare.common.entity;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAttackMelee;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
@@ -10,6 +11,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -49,6 +51,10 @@ public class EntityGraboid extends EntityMob {
 				this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.25D);
 			}
 		}
+		
+		if (ticksExisted % 2300 == 0 && rand.nextBoolean() || hurtTime == 1) {
+			setDiving(!isDiving());
+		}
 	}
 	
 	/**
@@ -83,5 +89,25 @@ public class EntityGraboid extends EntityMob {
 	@Override
 	protected boolean isValidLightLevel() {
 		return true;
+	}
+	
+	@Override
+	public void spawnRunningParticles() {
+		if (isDiving()) {
+			for (int k = 0; k < 20; ++k) {
+				double d2 = this.rand.nextGaussian() * 0.02D;
+				double d0 = this.rand.nextGaussian() * 0.02D;
+				double d1 = this.rand.nextGaussian() * 0.02D;
+				this.world.spawnParticle(EnumParticleTypes.SPIT, this.posX + (double) (this.rand.nextFloat() * this.width * 2.0F) - (double) this.width, this.posY + (double) (this.rand.nextFloat() * this.height), this.posZ + (double) (this.rand.nextFloat() * this.width * 2.0F) - (double) this.width, d2, d0, d1);
+			}
+		} else {
+			super.spawnRunningParticles();
+		}
+	}
+	
+	@Override
+	public boolean attackEntityAsMob(Entity entityIn) {
+		if (isDiving()) return false;
+		return super.attackEntityAsMob(entityIn);
 	}
 }

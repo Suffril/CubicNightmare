@@ -131,7 +131,7 @@ public class ClientHandler {
 		double originX = player.posX;
 		double originY = player.posY;
 		double originZ = player.posZ;
-		for (int i = 0; i < 16; i++) {
+		for (int i = 0; i < 55; i++) {
 			double particleX = originX + (random.nextInt(24) - random.nextInt(24));
 			double particleY = originY + (random.nextInt(24) - random.nextInt(24));
 			double particleZ = originZ + (random.nextInt(24) - random.nextInt(24));

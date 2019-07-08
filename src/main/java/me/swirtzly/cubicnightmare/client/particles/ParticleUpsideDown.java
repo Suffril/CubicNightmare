@@ -14,7 +14,7 @@ public class ParticleUpsideDown extends ParticleEndRod {
 	public ParticleUpsideDown(World p_i46580_1_, double p_i46580_2_, double p_i46580_4_, double p_i46580_6_, double p_i46580_8_, double p_i46580_10_, double p_i46580_12_) {
 		super(p_i46580_1_, p_i46580_2_, p_i46580_4_, p_i46580_6_, p_i46580_8_, p_i46580_10_, p_i46580_12_);
 		this.particleScale *= rand.nextBoolean() ? 0.25F : 0.05;
-		this.particleAlpha = 0.1F;
+		this.particleAlpha = 0.15F;
 	}
 	
 	@Override

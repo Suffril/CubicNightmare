@@ -104,7 +104,7 @@ public class ASMHooks {
 	
 	public static float overrideGamma(float original) {
 		if (CNUtil.isUpsideDownDimension(Minecraft.getMinecraft().world)) {
-			return -2F;
+			return -4F;
 		}
 		return original;
 	}
