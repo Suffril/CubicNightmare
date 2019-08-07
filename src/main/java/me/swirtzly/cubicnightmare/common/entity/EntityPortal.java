@@ -1,6 +1,8 @@
 package me.swirtzly.cubicnightmare.common.entity;
 
 import me.swirtzly.cubicnightmare.client.particles.ParticleUpsideDown;
+import me.swirtzly.cubicnightmare.common.dimensions.CNDimensions;
+import me.swirtzly.cubicnightmare.utils.Teleporter;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.nbt.NBTTagCompound;
@@ -28,7 +30,14 @@ public class EntityPortal extends Entity {
 	protected void writeEntityToNBT(NBTTagCompound compound) {
 	
 	}
-	
+
+	@Override
+	public void applyEntityCollision(Entity entityIn) {
+		if(!(entityIn instanceof EntityPortal)){
+			Teleporter.move(entityIn, CNDimensions.USD_ID, getPosition());
+		}
+	}
+
 	@Override
 	public void onUpdate() {
 		super.onUpdate();

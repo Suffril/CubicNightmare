@@ -11,6 +11,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -37,7 +38,7 @@ public class EntityGraboid extends EntityMob {
 	}
 	
 	public void setDiving(boolean diving) {
-		getDataManager().get(IS_DIVING);
+		getDataManager().set(IS_DIVING, diving);
 	}
 	
 	@Override
@@ -104,7 +105,13 @@ public class EntityGraboid extends EntityMob {
 			super.spawnRunningParticles();
 		}
 	}
-	
+
+	@Override
+	protected void damageEntity(DamageSource damageSrc, float damageAmount) {
+		if(isDiving()) return;
+		super.damageEntity(damageSrc, damageAmount);
+	}
+
 	@Override
 	public boolean attackEntityAsMob(Entity entityIn) {
 		if (isDiving()) return false;
